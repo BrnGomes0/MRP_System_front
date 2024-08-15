@@ -1,8 +1,10 @@
 import React from "react"
+import Header from "./components/Header/Header"
+
 
 function App() {
   return (
-    <h1 className="text-blue-600">BRUNO GOMES</h1>
+    <Header/>
   )
 }
 
