@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import TitleBig from "../../components/Title/Title_h1";
 import SubTitle from "../../components/SubTitle/SubTitle";
 import Box from "../../components/Box/Box";
-import Button from "../../components/Button/Button";
 import Forms from "../../components/Forms/Forms";
 import DropDown from "../../components/DropDown/DropDown";
 import StaticInput from "../../components/StaticInput/StaticInput";
 import NumberInput from "../../components/NumberInput/NumberInput";
-import Label from "../../components/Label/Label";
+
 
 
 interface RegisterAItemState{
@@ -66,7 +65,7 @@ const RegisterItem: React.FC  = () => {
                                 value={stateInputs.materialCode.toString()}
                             />
                             <DropDown
-                                title="Material"
+                                label="Material"
                                 classname="w-full"
                                 placeholder="Escolha o material"
                                 options={options}
