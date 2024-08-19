@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Line from "../LineBosch/LineBosch";
 import BoschIcon from "../BoschIcon/BoschIcon";
 
@@ -8,18 +9,20 @@ interface NavContext {
 }
 
 const NavLinks: NavContext[] = [
+    { path: "/use_case", name: "Use Case" },
+    { path: "/register_a_item", name: "Register a Item" },
     { path: "/warenhouse", name: "Warenhouse" },
-    { path: "/registerItem", name: "Register Item" },
-    { path: "/manufacturing", name: "Manufacturing" },
-    { path: "/about", name: "About" },
+    {path: "/manufacturing", name: "Manufacturing" },
 ];
 
 const Header: React.FC = () => {
     const [activePath, setActivePath] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const handleClick = (path: string, event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         event.preventDefault();
         setActivePath(path);
+        navigate(path)
     };
 
     return (

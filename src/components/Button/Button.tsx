@@ -1,16 +1,15 @@
 import React from "react";
 
-//Define a interface para as propriedades do botão
 interface ButtonProps{
-    title: string; //Propriedade que define o texto do botão
-    onClick?: () => void;
+    text: string;
+    onClick?: () => void 
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onClick }) => {
+const Button: React.FC<ButtonProps> = ({text, onClick}) => {
     return(
-        <div className="bg-sky-600 flex justify-center items-center text-white rounded-xl w-[100px] h-[35px]">
-            <button onClick={onClick}>
-                {title}
+        <div className="bg-[#245EA4] text-white w-[100px] h-[40px] text-center flex justify-center items-center font-poppinsFont rounded-lg">
+            <button onClick={onClick} className="w-[100px] h-[40px]" type="submit">
+                {text}
             </button>
         </div>
     )
