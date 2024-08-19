@@ -5,7 +5,7 @@ import SmallLetter from "../SmallLetter/SmallLetter";
 
 const Footer: React.FC = () => {
     return(
-        <div className="w-full pt-12">
+        <div className="w-full pt-20">
             <div className="w-full h-[1px] bg-gray-400"></div>
             <div className="flex justify-center items-center h-[56px]">
                 <CopyrightIcon/>

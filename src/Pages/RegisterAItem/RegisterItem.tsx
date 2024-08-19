@@ -6,6 +6,7 @@ import Forms from "../../components/Forms/Forms";
 import DropDown from "../../components/DropDown/DropDown";
 import StaticInput from "../../components/StaticInput/StaticInput";
 import NumberInput from "../../components/NumberInput/NumberInput";
+import Button from "../../components/Button/Button";
 
 
 
@@ -76,7 +77,7 @@ const RegisterItem: React.FC  = () => {
                                 label="Demand"
                                 placeholder="0"
                                 value={stateInputs.demand.toString()}
-                                onChange={handleChange}
+                                method={handleChange}
                                 
                             />
                             <NumberInput
@@ -84,13 +85,18 @@ const RegisterItem: React.FC  = () => {
                                 placeholder="0"
                                 classname="w-[110px]"
                                 value={stateInputs.initialInventory.toString()}
-                                onChange={handleChange}
+                                method={handleChange}
                             />
                             <NumberInput
                                 label="Safety Stock"
                                 placeholder="0"
                                 value={stateInputs.safetyStock.toString()}
                                 method={handleChange}
+                            />
+                        </div>
+                        <div className="flex justify-center items-center p-20">
+                            <Button
+                                text="Create"
                             />
                         </div>
                     </Forms>
