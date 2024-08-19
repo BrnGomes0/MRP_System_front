@@ -67,7 +67,7 @@ const RegisterItem: React.FC  = () => {
                             <DropDown
                                 label="Material"
                                 classname="w-full"
-                                placeholder="Escolha o material"
+                                placeholder="Select material"
                                 options={options}
                             />
                         </div>
