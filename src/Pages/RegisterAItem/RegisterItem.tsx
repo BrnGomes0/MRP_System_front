@@ -7,6 +7,7 @@ import Forms from "../../components/Forms/Forms";
 import DropDown from "../../components/DropDown/DropDown";
 import StaticInput from "../../components/StaticInput/StaticInput";
 import NumberInput from "../../components/NumberInput/NumberInput";
+import Label from "../../components/Label/Label";
 
 
 interface RegisterAItemState{
@@ -17,10 +18,9 @@ interface RegisterAItemState{
     safetyStock: number;
 }
 
-
+const options = ['Material A - (Pen)', 'Material B - (Package)'];
 
 const RegisterItem: React.FC  = () => {
-
     const [stateInputs, setStateInputs] = useState<RegisterAItemState>({
         material: "",
         materialCode: 0,
@@ -61,15 +61,15 @@ const RegisterItem: React.FC  = () => {
                 <Box classname="w-[380px] h-[200px]">
                     <Forms onSubmit={handleSubmit}>
                         <div className="flex gap-2">
-                            <DropDown
-                                label="Material"
-                                classname="w-[210px]"
-                                selectedValue={stateInputs.material}
-                                onChange={handleChange}
-                            />
                             <StaticInput
                                 label="Material Code"
                                 value={stateInputs.materialCode.toString()}
+                            />
+                            <DropDown
+                                title="Material"
+                                classname="w-full"
+                                placeholder="Escolha o material"
+                                options={options}
                             />
                         </div>
                         <div className="flex gap-2">

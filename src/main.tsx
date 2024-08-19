@@ -5,8 +5,8 @@ import Header from "./components/Header/Header";
 import './index.css'
 
 
-import RegisterItem from "./Pages/RegisterAItem/RegisterItem";
-import UseCase from "./Pages/UseCase/UseCase";
+import RegisterItem from "./pages/RegisterAItem/RegisterItem";
+import UseCase from "./pages/UseCase/UseCase";
 import Footer from "./components/Footer/Footer";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
