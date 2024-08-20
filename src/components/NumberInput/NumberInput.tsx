@@ -10,6 +10,15 @@ interface InputNumberProps{
 }
 
 const NumberInput: React.FC<InputNumberProps> = ({classname, placeholder, value, label, method}) => {
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (["Backspace", "Delete", "ArrowUp", "ArrowDown", "Tab"].includes(event.key)) {
+            return;
+        }
+        event.preventDefault();
+    };
+
+    
     return(
         <div className="p-1">
             <Label
@@ -22,6 +31,7 @@ const NumberInput: React.FC<InputNumberProps> = ({classname, placeholder, value,
                 value={value}
                 min="0"
                 onChange={method}
+                onKeyDown={handleKeyDown}
             />
         </div>
     )

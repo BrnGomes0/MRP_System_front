@@ -9,9 +9,7 @@ import NumberInput from "../../components/NumberInput/NumberInput";
 import Button from "../../components/Button/Button";
 
 const RegisterItem: React.FC  = () => {
-    //Para armazenar a opção selecionada
     const [selectedOption, setSelectedOption] = useState<string>('');  
-    //Para armazenar o valor de todos os inputs!
     const [inputValues, setInputValues] = useState<Record<string, string>>({
         Demand: '',
         Initial_Inventory: '',
@@ -20,7 +18,11 @@ const RegisterItem: React.FC  = () => {
 
     const options = ['Material A - (Pen)', 'Material B - (Package)'];
 
-    //Method for render state component based user interaction
+    const materialsCodes: Record<string, string> = {
+        "Material A - (Pen)": "1230",
+        "Material B - (Package)": "1240",
+    }
+
     const handleSelect = (value: string) => {
         setSelectedOption(value);
     };
@@ -28,13 +30,10 @@ const RegisterItem: React.FC  = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log(inputValues);
-        // Enviar os dados para o backend ou processá-los
     };
 
     const handleButtonSubmit = () => {
-        //Verificar o pq só o SelectedOption ta dando certo, acho que não ta imprimindo o inputvalues
         console.log("Material Selected: ", selectedOption, "Valores: ", inputValues.input1, inputValues.input2, inputValues.input3); 
-        // Enviar os dados para o backend ou processá-los
     };
 
     const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) =>{
@@ -63,13 +62,13 @@ const RegisterItem: React.FC  = () => {
                         <div className="flex gap-2">
                             <StaticInput
                                 label="Material Code"
-                                // value={stateInputs.materialCode.toString()}
-                                value={"0"}
+                                value={materialsCodes[selectedOption] || "0"}
+
                             />
                             <DropDown
                                 label="Material"
                                 classname="w-full"
-                                placeholder="Select material"
+                                placeholder="Select Material"
                                 options={options}
                                 onSelect={handleSelect}
                             />
@@ -96,7 +95,7 @@ const RegisterItem: React.FC  = () => {
                                 method={handleChange('input3')}
                             />
                         </div>
-                        <div className="flex justify-center items-center p-20">
+                        <div className="flex justify-center items-center p-28">
                             <Button
                                 text="Create"
                                 onClick={handleButtonSubmit}
