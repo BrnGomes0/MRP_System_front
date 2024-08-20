@@ -30,7 +30,7 @@ const RegisterAInforRecord: React.FC = () => {
                         <StaticInput
                                 label="Material"
                                 value="Material A - (Pen)"
-                                classname="w-[185px]"
+                                classname="w-[184px]"
                         />
                         <StaticInput
                                 label="Material Code"
@@ -59,6 +59,7 @@ const RegisterAInforRecord: React.FC = () => {
                             />
                         </div>
                 </Forms>
+                
             </Box>    
             </div>
         </section>
