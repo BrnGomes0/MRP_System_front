@@ -7,6 +7,7 @@ import RegisterItem from "./pages/RegisterAItem/RegisterItem";
 import UseCase from "./pages/UseCase/UseCase";
 import Footer from "./components/Footer/Footer";
 import RegisterAInforRecord from "./Pages/RegisterAInforRecord/RegisterAInforRecord";
+import Warenhouse from "./Pages/WarenHouse/WarenHouse";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/register_a_item" element={<RegisterItem/>}/>
           <Route path="/use_case" element={<UseCase/>}/>
           <Route path="/info_record" element={<RegisterAInforRecord/>}/>
+          <Route path="/warenhouse" element={<Warenhouse/>}/>
         </Routes>
       <Footer/>
     </BrowserRouter>
