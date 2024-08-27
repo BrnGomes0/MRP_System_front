@@ -6,7 +6,7 @@ interface InputNumberProps{
     placeholder: string;
     value?: string;
     label: string;
-    method: (event: React.ChangeEvent<HTMLInputElement>) => void; // Atualizado para ser uma função de callback
+    method?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Atualizado para ser uma função de callback
 }
 
 const NumberInput: React.FC<InputNumberProps> = ({classname, placeholder, value, label, method}) => {

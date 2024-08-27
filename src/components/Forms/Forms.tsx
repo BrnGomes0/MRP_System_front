@@ -2,7 +2,7 @@ import React, { ReactNode } from "react"
 
 interface FormsProps{
     children: ReactNode;
-    onSubmit: React.FormEventHandler<HTMLFormElement>;
+    onSubmit?: React.FormEventHandler<HTMLFormElement>;
 }
 
 

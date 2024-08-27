@@ -30,7 +30,7 @@ const RegisterAInforRecord: React.FC = () => {
                         <StaticInput
                                 label="Material"
                                 value="Material A - (Pen)"
-                                classname="w-[184px]"
+                                classname="w-[188px]"
                         />
                         <StaticInput
                                 label="Material Code"
@@ -38,7 +38,7 @@ const RegisterAInforRecord: React.FC = () => {
                                 classname="w-[104px]"
                         />
                    </div>
-                   <div className="flex gap-[10px] justify-center items-center ">
+                   <div className="flex gap-3 justify-center items-center ">
                         <StaticInput
                             label="Supplier Name"
                             value="929028"

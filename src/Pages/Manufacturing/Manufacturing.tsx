@@ -1,49 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import TitleBig from "../../components/Title/Title_h1";
 import SubTitle from "../../components/SubTitle/SubTitle";
-import {data_values_warenhouse} from "./data"
+import { data_values } from "./data";
 import Box from "../../components/Box/Box";
-import { useState } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Button from "../../components/Button/Button";
+import PopUp from "../../components/PopUp/PopUp";
 
-const Warenhouse: React.FC = () => {
-
+const Manufacturing: React.FC = () => {
+    
     const [search, setSearch] = useState("");
+    const [popUp, setPopUp] = useState(false);
 
-    const filteredData = data_values_warenhouse.filter((item) =>
+    const filteredData = data_values.filter((item) =>
         search.toLowerCase() === "" 
             ? item 
-            : item.info_record.toLowerCase().includes(search)
+            : item.order_code.toLowerCase().includes(search)
     );
 
-    return(
+    return (
         <section className="pt-[73px] flex flex-col justify-center items-center gap-10">
             <div className="p-10 flex flex-col text-center gap-14">
                 <div>
-                    <TitleBig
-                        title="Inventory Control"/>
-                    <SubTitle
-                        subTitle="See your stock here"/>
+                    <TitleBig title="Purchase control" />
+                    <SubTitle subTitle="See your PO here" />
                 </div>
             </div>
             <div className="flex flex-col gap-4">
-                <div className="p-2">
-                    <SearchBar
-                        placeholder="Search here..."
-                        setSearch={setSearch}
-                    />
-                </div>
+                    <div className="p-2">
+                        <SearchBar
+                            placeholder="Search here..."
+                            setSearch={setSearch}
+                        />
+                    </div>
                 <Box classname="w-[1237px] p-4">
                     <table className="font-poppinsFont text-center w-full rounded-xl">
                         <thead className="text-xl bg-neutral-200">
                             <tr>
-                                <th className="p-4">Info Record</th>
+                                <th className="p-4">Order Code</th>
                                 <th className="p-4">Material</th>
-                                <th className="p-4">Material Code</th>
-                                <th className="p-4">Average Cost</th>
-                                <th className="p-4">In Stock</th>
-                                <th className="p-4">Value in Stock</th>
-                                <th className="p-4">Last Replenishment</th>
+                                <th className="p-4">Cost</th>
+                                <th className="p-4">Consumption</th>
+                                <th className="p-4">Purch.Order</th>
+                                <th className="p-4">Week</th>
                             </tr>
                         </thead>
                         <tbody className="text-base">
@@ -53,13 +52,13 @@ const Warenhouse: React.FC = () => {
                                         className="border-b last:border-none hover:bg-gray-100 transition-colors"
                                         key={item.id}
                                     >
-                                        <td className="p-4">{item.info_record}</td>
+                                        <td className="p-4">{item.order_code}</td>
                                         <td className="p-4">{item.material}</td>
-                                        <td className="p-4">{item.material_code}</td>
-                                        <td className="p-4">{item.average_cost}</td>
-                                        <td className="p-4">{item.in_stock}</td>
-                                        <td className="p-4">{item.value_in_stock}</td>
-                                        <td className="p-4">{item.last_replenishment}</td>
+                                        <td className="p-4">{item.demand_cost}</td>
+                                        <td className="p-4">{item.consumption}</td>
+                                        <td className="p-4">{item.purch_order}</td>
+                                        <td className="p-4">{item.week}</td>
+
                                     </tr>
                                 ))
                             ) : (
@@ -73,8 +72,16 @@ const Warenhouse: React.FC = () => {
                     </table>
                 </Box>
             </div>
+            <div className="p-8">
+                <Button
+                    text="Run MRP"
+                    classname="w-[130px] h-[50px]"
+                    onClick={() => setPopUp(true)}
+                />
+                {popUp && <PopUp onClose={() => setPopUp(false)}/>}
+            </div>
         </section>
-    )
-}
+    );
+};
 
-export default Warenhouse
+export default Manufacturing;
