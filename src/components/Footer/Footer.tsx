@@ -1,6 +1,6 @@
 import React from "react";
-import Line from "../LineBosch/LineBosch";
-import CopyrightIcon from "../CopyrightIcon/CopyrightIcon";
+import Line from "../Icons/LineBosch/LineBosch";
+import CopyrightIcon from "../Icons/CopyrightIcon/CopyrightIcon";
 import SmallLetter from "../SmallLetter/SmallLetter";
 
 const Footer: React.FC = () => {

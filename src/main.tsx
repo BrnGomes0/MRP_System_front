@@ -8,6 +8,8 @@ import UseCase from "./pages/UseCase/UseCase";
 import Footer from "./components/Footer/Footer";
 import RegisterAInforRecord from "./Pages/RegisterAInforRecord/RegisterAInforRecord";
 import Warenhouse from "./Pages/WarenHouse/WarenHouse";
+import Manufacturing from "./Pages/Manufacturing/Manufacturing";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -18,6 +20,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/use_case" element={<UseCase/>}/>
           <Route path="/info_record" element={<RegisterAInforRecord/>}/>
           <Route path="/warenhouse" element={<Warenhouse/>}/>
+          <Route path="/manufacturing" element={<Manufacturing/>} />
+          <Route path="/search" element={<SearchBar/>} />
         </Routes>
       <Footer/>
     </BrowserRouter>

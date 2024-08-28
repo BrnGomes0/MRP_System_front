@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Line from "../LineBosch/LineBosch";
-import BoschIcon from "../BoschIcon/BoschIcon";
+import Line from "../Icons/LineBosch/LineBosch";
+import BoschIcon from "../Icons/BoschIcon/BoschIcon";
 
 interface NavContext {
     path: string;
