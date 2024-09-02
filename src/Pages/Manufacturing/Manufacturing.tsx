@@ -15,7 +15,7 @@ const Manufacturing: React.FC = () => {
     const filteredData = data_values.filter((item) =>
         search.toLowerCase() === "" 
             ? item 
-            : item.order_code.toLowerCase().includes(search)
+            : item.order_received.toLowerCase().includes(search)
     );
 
     return (
@@ -37,11 +37,9 @@ const Manufacturing: React.FC = () => {
                     <table className="font-poppinsFont text-center w-full rounded-xl">
                         <thead className="text-xl bg-neutral-200">
                             <tr>
-                                <th className="p-4">Order Code</th>
-                                <th className="p-4">Material</th>
-                                <th className="p-4">Cost</th>
-                                <th className="p-4">Consumption</th>
-                                <th className="p-4">Purch.Order</th>
+                                <th className="p-4">Order Received</th>
+                                <th className="p-4">Order Placed</th>
+                                <th className="p-4"></th>
                                 <th className="p-4">Week</th>
                             </tr>
                         </thead>
@@ -52,11 +50,9 @@ const Manufacturing: React.FC = () => {
                                         className="border-b last:border-none hover:bg-gray-100 transition-colors"
                                         key={item.id}
                                     >
-                                        <td className="p-4">{item.order_code}</td>
-                                        <td className="p-4">{item.material}</td>
-                                        <td className="p-4">{item.demand_cost}</td>
-                                        <td className="p-4">{item.consumption}</td>
-                                        <td className="p-4">{item.purch_order}</td>
+                                        <td className="p-4">{item.order_received}</td>
+                                        <td className="p-4">{item.order_placed}</td>
+                                        <td className="p-4">{}</td>
                                         <td className="p-4">{item.week}</td>
 
                                     </tr>

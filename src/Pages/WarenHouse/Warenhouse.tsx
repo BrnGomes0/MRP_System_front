@@ -13,7 +13,7 @@ const Warenhouse: React.FC = () => {
     const filteredData = data_values_warenhouse.filter((item) =>
         search.toLowerCase() === "" 
             ? item 
-            : item.info_record.toLowerCase().includes(search)
+            : item.week.toLowerCase().includes(search)
     );
 
     return(
@@ -37,13 +37,11 @@ const Warenhouse: React.FC = () => {
                     <table className="font-poppinsFont text-center w-full rounded-xl">
                         <thead className="text-xl bg-neutral-200">
                             <tr>
-                                <th className="p-4">Info Record</th>
-                                <th className="p-4">Material</th>
-                                <th className="p-4">Material Code</th>
-                                <th className="p-4">Average Cost</th>
-                                <th className="p-4">In Stock</th>
-                                <th className="p-4">Value in Stock</th>
-                                <th className="p-4">Last Replenishment</th>
+                                <th className="p-4">Week</th>
+                                <th className="p-4">Security Stock</th>
+                                <th className="p-4">Consumption</th>
+                                <th className="p-4">Inicial Inventory</th>
+                                <th className="p-4">Final Inventory</th>
                             </tr>
                         </thead>
                         <tbody className="text-base">
@@ -53,13 +51,11 @@ const Warenhouse: React.FC = () => {
                                         className="border-b last:border-none hover:bg-gray-100 transition-colors"
                                         key={item.id}
                                     >
-                                        <td className="p-4">{item.info_record}</td>
-                                        <td className="p-4">{item.material}</td>
-                                        <td className="p-4">{item.material_code}</td>
-                                        <td className="p-4">{item.average_cost}</td>
-                                        <td className="p-4">{item.in_stock}</td>
-                                        <td className="p-4">{item.value_in_stock}</td>
-                                        <td className="p-4">{item.last_replenishment}</td>
+                                        <td className="p-4">{item.week}</td>
+                                        <td className="p-4">{item.security_stock}</td>
+                                        <td className="p-4">{item.consumption}</td>
+                                        <td className="p-4">{item.inicial_inventory}</td>
+                                        <td className="p-4">{item.final_stock}</td>
                                     </tr>
                                 ))
                             ) : (

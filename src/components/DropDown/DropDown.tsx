@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Label from "../Label/Label";
-
+ 
 interface DropDownProps{
     options: string[];
     classname?: string;
@@ -8,22 +8,22 @@ interface DropDownProps{
     onSelect?: (value: string) => void;
     label: string
 }
-
+ 
 const DropDown: React.FC<DropDownProps> = ({label, options, placeholder, onSelect, classname}) => {
     //Para armazenar a opção selecionada  
     const [selectedOption, setSelectedOption] = useState<string>('');  
-
+ 
     useEffect(() =>{
       if (onSelect){
         onSelect(selectedOption);
       }
     }, [selectedOption, onSelect]);
-
+ 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) =>{
       const newValue = event.target.value;
       setSelectedOption(newValue);
     };
-
+ 
     return(
         <div className="p-1">
             <Label
@@ -34,18 +34,18 @@ const DropDown: React.FC<DropDownProps> = ({label, options, placeholder, onSelec
                   <option value="" disabled>
                       {placeholder}
                   </option>
-
+ 
                   {options.map((option, index) => (
                     <option key={index} value={option}>
                       {option}
                     </option>
-                    
+                   
                   ))}
               </select>
             </div>
         </div>
     )
 }
-
-
+ 
+ 
 export default DropDown

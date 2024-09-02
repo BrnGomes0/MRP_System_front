@@ -40,7 +40,7 @@ const RegisterAInforRecord: React.FC = () => {
                    </div>
                    <div className="flex gap-3 justify-center items-center ">
                         <StaticInput
-                            label="Supplier Name"
+                            label="Supplier Code"
                             value="929028"
                             classname="w-[105px]"
                         />

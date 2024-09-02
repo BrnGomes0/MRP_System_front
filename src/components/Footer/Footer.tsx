@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
             <div className="flex justify-center items-center h-[56px]">
                 <CopyrightIcon/>
                 <SmallLetter
-                    paragraph="Developed by GS/PSC3"
+                    paragraph="Developed by DTA of GS/PSC3"
                     isBold={true}
                 />
             </div> 

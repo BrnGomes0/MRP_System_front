@@ -11,7 +11,7 @@ interface NavContext {
 const NavLinks: NavContext[] = [
     { path: "/use_case", name: "Use Case" },
     { path: "/register_a_item", name: "Register a Item" },
-    { path: "/warenhouse", name: "Warenhouse" },
+    { path: "/warenhouse", name: "Inventory Management" },
     {path: "/manufacturing", name: "Manufacturing" },
 ];
 
