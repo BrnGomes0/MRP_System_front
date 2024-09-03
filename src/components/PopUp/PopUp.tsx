@@ -18,24 +18,33 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     }, []);
     return(
         <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur-sm flex justify-center items-center z-50">
-            <div className="p-2 bg-white w-[400px] h-[300px] rounded-md flex flex-col justify-center items-center gap-6">
-            <button className="place-self-end font-bold p-2" onClick={onClose}>X</button>
+            <div className="p-4 bg-white w-[404px] h-[365px] rounded-xl flex flex-col justify-center items-center gap-6 shadow-lg">
+            <button className="place-self-end font-bold" onClick={onClose}>X</button>
                 <div className="flex flex-col text-center">
                     <TitleSmall
-                        title="Value Paper:"
+                        title="Informations:"
                     />
                     <SubTitle
-                        subTitle="Put the value of paper"
+                        subTitle="Put the new values"
                     />
                 </div>
                 <div className="flex flex-col justify-center items-center">
-                    <NumberInput
-                        label="Demand of Paper"
-                        placeholder="0"
-                        classname="w-[126px]"
-                    />
+                    <div>
+                        <NumberInput
+                            label="Material Consumption"
+                            placeholder="0"
+                            classname="w-[165px] text-center"
+                        />
+                    </div>
+                    <div>
+                        <NumberInput
+                            label="Order Received"
+                            placeholder="0"
+                            classname="w-[114px] text-center"
+                        />
+                    </div>
                 </div>
-                <div className="">
+                <div className="pb-6">
                     <Button
                         text="Send"
                         classname="w-[90px] h-[30px]"

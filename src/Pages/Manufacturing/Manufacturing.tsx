@@ -6,6 +6,7 @@ import Box from "../../components/Box/Box";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
 import PopUp from "../../components/PopUp/PopUp";
+import NumberInput from "../../components/NumberInput/NumberInput";
 
 const Manufacturing: React.FC = () => {
     
@@ -15,7 +16,7 @@ const Manufacturing: React.FC = () => {
     const filteredData = data_values.filter((item) =>
         search.toLowerCase() === "" 
             ? item 
-            : item.order_received.toLowerCase().includes(search.toLocaleLowerCase())
+            : item.week.toLowerCase().includes(search.toLocaleLowerCase())
     );
 
     return (
