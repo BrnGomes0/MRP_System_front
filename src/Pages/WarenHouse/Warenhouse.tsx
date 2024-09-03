@@ -13,7 +13,7 @@ const Warenhouse: React.FC = () => {
     const filteredData = data_values_warenhouse.filter((item) =>
         search.toLowerCase() === "" 
             ? item 
-            : item.week.toLowerCase().includes(search)
+            : item.week.toLowerCase().includes(search.toLocaleLowerCase())
     );
 
     return(
@@ -34,39 +34,41 @@ const Warenhouse: React.FC = () => {
                     />
                 </div>
                 <Box classname="w-[1237px] p-4">
-                    <table className="font-poppinsFont text-center w-full rounded-xl">
-                        <thead className="text-xl bg-neutral-200">
-                            <tr>
-                                <th className="p-4">Week</th>
-                                <th className="p-4">Security Stock</th>
-                                <th className="p-4">Consumption</th>
-                                <th className="p-4">Inicial Inventory</th>
-                                <th className="p-4">Final Inventory</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-base">
-                            {filteredData.length > 0 ? (
-                                filteredData.map((item) => (
-                                    <tr
-                                        className="border-b last:border-none hover:bg-gray-100 transition-colors"
-                                        key={item.id}
-                                    >
-                                        <td className="p-4">{item.week}</td>
-                                        <td className="p-4">{item.security_stock}</td>
-                                        <td className="p-4">{item.consumption}</td>
-                                        <td className="p-4">{item.inicial_inventory}</td>
-                                        <td className="p-4">{item.final_stock}</td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr className="border-b last:border-none hover:bg-gray-100 transition-colors">
-                                    <td colSpan={8} className="p-4">
-                                        No results found
-                                    </td>
+                    <div className="max-h-[480px] overflow-y-auto">
+                        <table className="font-poppinsFont text-center w-full rounded-xl">
+                            <thead className="text-xl bg-neutral-200 sticky top-0 z-10">
+                                <tr>
+                                    <th className="p-4">Week</th>
+                                    <th className="p-4">Security Stock</th>
+                                    <th className="p-4">Consumption</th>
+                                    <th className="p-4">Inicial Inventory</th>
+                                    <th className="p-4">Final Inventory</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="text-base">
+                                {filteredData.length > 0 ? (
+                                    filteredData.map((item) => (
+                                        <tr
+                                            className="border-b last:border-none hover:bg-gray-100 transition-colors"
+                                            key={item.id}
+                                        >
+                                            <td className="p-4">{item.week}</td>
+                                            <td className="p-4">{item.security_stock}</td>
+                                            <td className="p-4">{item.consumption}</td>
+                                            <td className="p-4">{item.inicial_inventory}</td>
+                                            <td className="p-4">{item.final_stock}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr className="border-b last:border-none hover:bg-gray-100 transition-colors">
+                                        <td colSpan={8} className="p-4">
+                                            No results found
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </Box>
             </div>
         </section>

@@ -26,7 +26,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <nav className="shadow-md w-full fixed h-[73px] bg-white">
+        <nav className="shadow-md w-full fixed h-[73px] bg-white z-20">
             <Line />
             <div className="flex items-center">
                 <BoschIcon />

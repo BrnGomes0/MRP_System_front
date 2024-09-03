@@ -32,7 +32,7 @@ const UseCase: React.FC = () => {
                                 valueLight="929029"
                             />
                         </div>
-                        <div className="flex flex-col gap-1">
+                        {/* <div className="flex flex-col gap-1">
                             <TitleSmall title="Average Demand"/>
                             <DescriptionTwoValues
                                 valueBold="Material A (Pen): "
@@ -42,7 +42,7 @@ const UseCase: React.FC = () => {
                                 valueBold="Material B (Package): "
                                 valueLight="100 packages"
                             />
-                        </div>
+                        </div> */}
                         <div className="flex flex-col gap-1">
                             <TitleSmall title="Lead Time"/>
                             <DescriptionTwoValues

@@ -17,7 +17,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
         };
     }, []);
     return(
-        <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur-sm flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur-sm flex justify-center items-center z-50">
             <div className="p-2 bg-white w-[400px] h-[300px] rounded-md flex flex-col justify-center items-center gap-6">
             <button className="place-self-end font-bold p-2" onClick={onClose}>X</button>
                 <div className="flex flex-col text-center">

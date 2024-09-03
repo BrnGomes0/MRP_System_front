@@ -1,7 +1,7 @@
 export const data_values_warenhouse = [
   {
   "id": 1,
-  "week": "1",
+  "week": "Week 1",
   "security_stock": "50",
   "consumption": 30,
   "inicial_inventory": "100",
@@ -9,7 +9,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 2,
-  "week": "2",
+  "week": "Week 2",
   "security_stock": "30",
   "consumption": 20,
   "inicial_inventory": "60",
@@ -17,7 +17,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 3,
-  "week": "3",
+  "week": "Week 3",
   "security_stock": "35",
   "consumption": 25,
   "inicial_inventory": "75",
@@ -25,7 +25,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 4,
-  "week": "4",
+  "week": "Week 4",
   "security_stock": "20",
   "consumption": 10,
   "inicial_inventory": "40",
@@ -33,7 +33,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 5,
-  "week": "5",
+  "week": "Week 5",
   "security_stock": "55",
   "consumption": 35,
   "inicial_inventory": "110",
@@ -41,7 +41,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 6,
-  "week": "6",
+  "week": "Week 6",
   "security_stock": "60",
   "consumption": 40,
   "inicial_inventory": "120",
@@ -49,7 +49,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 7,
-  "week": "7",
+  "week": "Week 7",
   "security_stock": "35",
   "consumption": 25,
   "inicial_inventory": "70",
@@ -57,7 +57,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 8,
-  "week": "8",
+  "week": "Week 8",
   "security_stock": "40",
   "consumption": 30,
   "inicial_inventory": "80",
@@ -65,7 +65,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 9,
-  "week": "9",
+  "week": "Week 9",
   "security_stock": "15",
   "consumption": 10,
   "inicial_inventory": "40",
@@ -73,7 +73,7 @@ export const data_values_warenhouse = [
 },
 {
   "id": 10,
-  "week": "10",
+  "week": "Week 10",
   "security_stock": "35",
   "consumption": 25,
   "inicial_inventory": "70",

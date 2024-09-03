@@ -15,15 +15,15 @@ const Manufacturing: React.FC = () => {
     const filteredData = data_values.filter((item) =>
         search.toLowerCase() === "" 
             ? item 
-            : item.order_received.toLowerCase().includes(search)
+            : item.order_received.toLowerCase().includes(search.toLocaleLowerCase())
     );
 
     return (
         <section className="pt-[73px] flex flex-col justify-center items-center gap-10">
             <div className="p-10 flex flex-col text-center gap-14">
                 <div>
-                    <TitleBig title="Purchase control" />
-                    <SubTitle subTitle="See your PO here" />
+                    <TitleBig title="Purchase control"/>
+                    <SubTitle subTitle="See your PO here"/>
                 </div>
             </div>
             <div className="flex flex-col gap-4">
@@ -33,14 +33,14 @@ const Manufacturing: React.FC = () => {
                             setSearch={setSearch}
                         />
                     </div>
-                <Box classname="w-[1237px] p-4">
+                <Box classname="w-[900px] p-4">
+                    <div className="max-h-[400px] overflow-y-auto">
                     <table className="font-poppinsFont text-center w-full rounded-xl">
-                        <thead className="text-xl bg-neutral-200">
+                        <thead className="text-xl bg-neutral-200 sticky top-0 z-10">
                             <tr>
-                                <th className="p-4">Order Received</th>
-                                <th className="p-4">Order Placed</th>
-                                <th className="p-4"></th>
                                 <th className="p-4">Week</th>
+                                <th className="p-4">Order Placed</th>
+                                <th className="p-4">Order Received</th>
                             </tr>
                         </thead>
                         <tbody className="text-base">
@@ -50,10 +50,9 @@ const Manufacturing: React.FC = () => {
                                         className="border-b last:border-none hover:bg-gray-100 transition-colors"
                                         key={item.id}
                                     >
-                                        <td className="p-4">{item.order_received}</td>
-                                        <td className="p-4">{item.order_placed}</td>
-                                        <td className="p-4">{}</td>
                                         <td className="p-4">{item.week}</td>
+                                        <td className="p-4">{item.order_placed}</td>
+                                        <td className="p-4">{item.order_received}</td>
 
                                     </tr>
                                 ))
@@ -66,6 +65,7 @@ const Manufacturing: React.FC = () => {
                             )}
                         </tbody>
                     </table>
+                    </div>
                 </Box>
             </div>
             <div className="p-8">
