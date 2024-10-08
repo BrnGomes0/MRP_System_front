@@ -11,8 +11,8 @@ interface NavContext {
 const NavLinks: NavContext[] = [
     { path: "/use_case", name: "Use Case" },
     { path: "/register_a_item", name: "Register a Item" },
-    { path: "/warenhouse", name: "Inventory Management" },
-    {path: "/manufacturing", name: "Manufacturing" },
+    { path: "/inventory_management", name: "Inventory Management" },
+    {path: "/po_management", name: "PO Management " },
 ];
 
 const Header: React.FC = () => {

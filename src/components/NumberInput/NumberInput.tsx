@@ -7,9 +7,10 @@ interface InputNumberProps{
     value?: string;
     label: string;
     method?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Atualizado para ser uma função de callback
+    style?: React.CSSProperties
 }
 
-const NumberInput: React.FC<InputNumberProps> = ({classname, placeholder, value, label, method}) => {
+const NumberInput: React.FC<InputNumberProps> = ({classname, placeholder, value, label, method, style}) => {
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (["Backspace", "Delete", "ArrowUp", "ArrowDown", "Tab"].includes(event.key)) {
@@ -32,6 +33,7 @@ const NumberInput: React.FC<InputNumberProps> = ({classname, placeholder, value,
                 min="0"
                 onChange={method}
                 onKeyDown={handleKeyDown}
+                style={style}
             />
         </div>
     )

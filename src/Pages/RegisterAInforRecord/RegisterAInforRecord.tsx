@@ -7,14 +7,19 @@ import StaticInput from "../../components/StaticInput/StaticInput";
 import NumberInput from "../../components/NumberInput/NumberInput";
 import PriceInput from "../../components/PriceInput/PriceInput";
 import Button from "../../components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 
 const RegisterAInforRecord: React.FC = () => {
 
-    
+    const navigate = useNavigate();
+
+    const handleCreateClick = () => {
+        navigate("/inventory_management")
+    }
 
     return(
-        <section className="pt-[73px] flex justify-center items-center gap-10">
+        <section className="pt-[73px] flex justify-center items-center gap-10 pb-[365px]">
             <div className="p-10 flex flex-col gap-14 justify-center items-center">
                 <div className="text-center">
                    <TitleBig
@@ -24,25 +29,25 @@ const RegisterAInforRecord: React.FC = () => {
                        subTitle="Info record of material created"
                    />
             </div>
-            <Box classname="w-[390px] h-[220px]">
+            <Box classname="w-[400px] h-[240px]">
                 <Forms>
                    <div className="flex gap-6 justify-center items-center">
                         <StaticInput
                                 label="Material"
                                 value="Material A - (Pen)"
-                                classname="w-[188px]"
+                                style={{width: 188}}
                         />
                         <StaticInput
                                 label="Material Code"
                                 value="1230"
-                                classname="w-[104px]"
+                                style={{width: 104}}
                         />
                    </div>
-                   <div className="flex gap-3 justify-center items-center ">
+                   <div className="flex gap-3 justify-center items-center">
                         <StaticInput
                             label="Supplier Code"
                             value="929028"
-                            classname="w-[105px]"
+                            style={{width: 105}}
                         />
                         <PriceInput
                             label="Price"
@@ -53,9 +58,10 @@ const RegisterAInforRecord: React.FC = () => {
                             placeholder="0"
                         />
                    </div>
-                   <div className="flex justify-center items-center p-32">
+                   <div className="flex justify-center items-center p-40">
                             <Button
                                 text="Create"
+                                onClick={handleCreateClick}
                             />
                         </div>
                 </Forms>
@@ -65,5 +71,4 @@ const RegisterAInforRecord: React.FC = () => {
         </section>
     )
 }
-
 export default RegisterAInforRecord

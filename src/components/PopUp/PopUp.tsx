@@ -28,19 +28,21 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
                         subTitle="Put the new values"
                     />
                 </div>
-                <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col">
                     <div>
                         <NumberInput
                             label="Material Consumption"
                             placeholder="0"
-                            classname="w-[165px] text-center"
+                            classname="text-center"
+                            style={{width: 165}}
                         />
                     </div>
                     <div>
                         <NumberInput
                             label="Order Received"
                             placeholder="0"
-                            classname="w-[114px] text-center"
+                            classname="text-center"
+                            style={{width: 114}}
                         />
                     </div>
                 </div>

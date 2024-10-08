@@ -7,14 +7,21 @@ import DropDown from "../../components/DropDown/DropDown";
 import StaticInput from "../../components/StaticInput/StaticInput";
 import NumberInput from "../../components/NumberInput/NumberInput";
 import Button from "../../components/Button/Button";
+import { useNavigate } from "react-router-dom";
  
 const RegisterItem: React.FC  = () => {
+
+    const navigate = useNavigate()
     const [selectedOption, setSelectedOption] = useState<string>('');  
     const [inputValues, setInputValues] = useState<Record<string, string>>({
         Demand: '',
         Initial_Inventory: '',
         Safety_Stock: '',
     });
+
+    const handleCreateClick = () => {
+        navigate("/info_record")
+    }
  
     const options = ['Material A - (Pen)', 'Material B - (Package)'];
  
@@ -45,7 +52,7 @@ const RegisterItem: React.FC  = () => {
    
  
     return(
-        <section className="pt-[73px] flex flex-col justify-center items-center gap-10">
+        <section className="pt-[73px] flex flex-col justify-center items-center gap-10 pb-[365px]">
             <div className="p-10 flex flex-col gap-14 justify-center items-center">
                 <div className="text-center">
                     <TitleBig
@@ -53,13 +60,13 @@ const RegisterItem: React.FC  = () => {
                         classname="text-center"
                     />
                     <SubTitle
-                        subTitle="Create a material, following the labels"
+                        subTitle="Fill up the below fields"
                         classname="tex-center"
                     />
                 </div>
-                <Box classname="w-[380px] h-[200px]">
+                <Box classname="w-[380px] h-[210px]">
                     <Forms onSubmit={handleSubmit}>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 ">
                             <StaticInput
                                 label="Material Code"
                                 value={materialsCodes[selectedOption] || "0"}
@@ -95,16 +102,15 @@ const RegisterItem: React.FC  = () => {
                                 method={handleChange('input3')}
                             />
                         </div>
-                        <div className="flex justify-center items-center p-28">
+                        <div className="flex justify-center items-center p-[130px]">
                             <Button
                                 text="Create"
-                                onClick={handleButtonSubmit}
+                                onClick={handleCreateClick}
                             />
                         </div>
                     </Forms>
                 </Box>
             </div>
-           
         </section>
     )
 }

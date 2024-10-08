@@ -1,26 +1,33 @@
 import React, { useState } from "react";
 import TitleBig from "../../components/Title/Title_h1";
 import SubTitle from "../../components/SubTitle/SubTitle";
-import { data_values } from "./data";
+import { data_value_A, data_value_b} from "./data";
 import Box from "../../components/Box/Box";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
 import PopUp from "../../components/PopUp/PopUp";
-import NumberInput from "../../components/NumberInput/NumberInput";
+
 
 const Manufacturing: React.FC = () => {
     
     const [search, setSearch] = useState("");
     const [popUp, setPopUp] = useState(false);
+    const [selectedMaterial, setSelectedMaterial] = useState<"A" | "B">("A")
 
-    const filteredData = data_values.filter((item) =>
-        search.toLowerCase() === "" 
-            ? item 
-            : item.week.toLowerCase().includes(search.toLocaleLowerCase())
+    const filteredData =
+    (selectedMaterial === "A" ? data_value_A : data_value_b).filter((item) =>
+        search.toLowerCase() === ""
+            ? item
+            : item.week.toLowerCase().includes(search.toLowerCase())
     );
 
+    const handleMaterialSelect = (material: "A" | "B") => {
+        setSelectedMaterial(material);
+        setSearch("");
+    };
+
     return (
-        <section className="pt-[73px] flex flex-col justify-center items-center gap-10">
+        <section className="pt-[73px] flex flex-col justify-center items-center gap-10 pb-20">
             <div className="p-10 flex flex-col text-center gap-14">
                 <div>
                     <TitleBig title="Purchase control"/>
@@ -28,11 +35,23 @@ const Manufacturing: React.FC = () => {
                 </div>
             </div>
             <div className="flex flex-col gap-4">
-                    <div className="p-2">
-                        <SearchBar
-                            placeholder="Search here..."
-                            setSearch={setSearch}
-                        />
+                    <div className="flex gap-10">
+                        <div className="p-2">
+                            <SearchBar
+                                placeholder="Search here..."
+                                setSearch={setSearch}
+                            />
+                        </div>
+                        <div className="flex justify-center items-center w-[210px] p-2 gap-2">
+                            <Button
+                                text="Material A"
+                                onClick={() => handleMaterialSelect("A")}
+                            />
+                            <Button
+                                text="Material B"
+                                onClick={() => handleMaterialSelect("B")}
+                            />
+                        </div>
                     </div>
                 <Box classname="w-[900px] p-4">
                     <div className="max-h-[400px] overflow-y-auto">
@@ -40,6 +59,7 @@ const Manufacturing: React.FC = () => {
                         <thead className="text-xl bg-neutral-200 sticky top-0 z-10">
                             <tr>
                                 <th className="p-4">Week</th>
+                                <th className="p-4">Material</th>
                                 <th className="p-4">Order Placed</th>
                                 <th className="p-4">Order Received</th>
                             </tr>
@@ -52,8 +72,9 @@ const Manufacturing: React.FC = () => {
                                         key={item.id}
                                     >
                                         <td className="p-4">{item.week}</td>
-                                        <td className="p-4">{item.order_placed}</td>
-                                        <td className="p-4">{item.order_received}</td>
+                                        <td className="p-4">{item.material}</td>
+                                        <td className="p-4">{item.order_placed} pcs</td>
+                                        <td className="p-4">{item.order_received} pcs</td>
 
                                     </tr>
                                 ))
