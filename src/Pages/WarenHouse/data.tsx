@@ -5,8 +5,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": 1,
   "consumption": 30,
-  "inicial_inventory": 100,
-  "final_stock": 20,
+  "inventory": 100,
 },
 {
   "id": 2,
@@ -14,8 +13,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "30",
   "consumption": 20,
-  "inicial_inventory": "60",
-  "final_stock": 40,
+  "inventory": "60",
 },
 {
   "id": 3,
@@ -23,8 +21,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "35",
   "consumption": 25,
-  "inicial_inventory": "75",
-  "final_stock": 50,
+  "inventory": "75",
 },
 {
   "id": 4,
@@ -32,8 +29,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "20",
   "consumption": 10,
-  "inicial_inventory": "40",
-  "final_stock": 30,
+  "inventory": "40",
 },
 {
   "id": 5,
@@ -41,8 +37,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "55",
   "consumption": 35,
-  "inicial_inventory": "110",
-  "final_stock": 75,
+  "inventory": "110",
 },
 {
   "id": 6,
@@ -50,8 +45,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "60",
   "consumption": 40,
-  "inicial_inventory": "120",
-  "final_stock": 80,
+  "inventory": "120",
 },
 {
   "id": 7,
@@ -59,8 +53,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "35",
   "consumption": 25,
-  "inicial_inventory": "70",
-  "final_stock": 45,
+  "inventory": "70",
 },
 {
   "id": 8,
@@ -68,8 +61,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "40",
   "consumption": 30,
-  "inicial_inventory": "80",
-  "final_stock": 50,
+  "inventory": "80",
 },
 {
   "id": 9,
@@ -77,8 +69,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "15",
   "consumption": 10,
-  "inicial_inventory": "40",
-  "final_stock": 30,
+  "inventory": "40",
 },
 {
   "id": 10,
@@ -86,8 +77,7 @@ export const data_values_materials_A = [
   "material": "Material A - (Pen)",
   "safety_stock": "35",
   "consumption": 25,
-  "inicial_inventory": "70",
-  "final_stock": 45,
+  "inventory": "70",
 }]
 
 
@@ -98,8 +88,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "50",
   "consumption": 30,
-  "inicial_inventory": "100",
-  "final_stock": 20,
+  "inventory": "100",
 },
 {
   "id": 2,
@@ -107,8 +96,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "30",
   "consumption": 20,
-  "inicial_inventory": "60",
-  "final_stock": 40,
+  "inventory": "60",
 },
 {
   "id": 3,
@@ -116,8 +104,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "35",
   "consumption": 25,
-  "inicial_inventory": "75",
-  "final_stock": 50,
+  "inventory": "75",
 },
 {
   "id": 4,
@@ -125,8 +112,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "20",
   "consumption": 10,
-  "inicial_inventory": "40",
-  "final_stock": 30,
+  "inventory": "40",
 },
 {
   "id": 5,
@@ -134,8 +120,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "55",
   "consumption": 35,
-  "inicial_inventory": "110",
-  "final_stock": 75,
+  "inventory": "110",
 },
 {
   "id": 6,
@@ -143,8 +128,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "60",
   "consumption": 40,
-  "inicial_inventory": "120",
-  "final_stock": 80,
+  "inventory": "120",
 },
 {
   "id": 7,
@@ -152,8 +136,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "35",
   "consumption": 25,
-  "inicial_inventory": "70",
-  "final_stock": 45,
+  "inventory": "70",
 },
 {
   "id": 8,
@@ -161,8 +144,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "40",
   "consumption": 30,
-  "inicial_inventory": "80",
-  "final_stock": 50,
+  "inventory": "80",
 },
 {
   "id": 9,
@@ -170,8 +152,7 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "15",
   "consumption": 10,
-  "inicial_inventory": "40",
-  "final_stock": 30,
+  "inventory": "40",
 },
 {
   "id": 10,
@@ -179,6 +160,5 @@ export const data_values_materials_B = [
   "material": "Material B - (Package)",
   "safety_stock": "35",
   "consumption": 25,
-  "inicial_inventory": "70",
-  "final_stock": 45,
+  "inventory": "70",
 }]

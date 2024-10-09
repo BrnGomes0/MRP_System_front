@@ -61,8 +61,7 @@ const Warenhouse: React.FC = () => {
                                     <th className="p-4">Material</th>
                                     <th className="p-4">Safety Stock </th>
                                     <th className="p-4">Consumption</th>
-                                    <th className="p-4">Initial Inventory</th>
-                                    <th className="p-4">Final Inventory</th>
+                                    <th className="p-4">Inventory</th>
                                 </tr>
                             </thead>
                             <tbody className="text-base">
@@ -76,8 +75,7 @@ const Warenhouse: React.FC = () => {
                                             <td className="p-4">{item.material}</td>
                                             <td className="p-4">{item.safety_stock} pcs</td>
                                             <td className="p-4">{item.consumption} pcs</td>
-                                            <td className="p-4">{item.inicial_inventory} pcs</td>
-                                            <td className="p-4">{item.final_stock} pcs</td>
+                                            <td className="p-4">{item.inventory} pcs</td>
                                         </tr>
                                     ))
                                 ) : (
