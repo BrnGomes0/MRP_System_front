@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TitleBig from "../../components/Title/Title_h1";
 import SubTitle from "../../components/SubTitle/SubTitle";
 import Box from "../../components/Box/Box";
@@ -8,21 +8,61 @@ import StaticInput from "../../components/StaticInput/StaticInput";
 import NumberInput from "../../components/NumberInput/NumberInput";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
- 
-const RegisterItem: React.FC  = () => {
+import axios from "axios"; 
+import PopUpOk from "../../components/PopUpOk/PopUpOk";
+import PopUpError from "../../components/PopUpError/PopUpError";
 
+const RegisterItem: React.FC  = () => {
     const navigate = useNavigate()
+    const [popUp, setPopUp] = useState(false);
+    const [popUpError, setPopUpError] = useState(false);
+    const [popUpErrorText, setPopUpErrorText] = useState<string>('');
     const [selectedOption, setSelectedOption] = useState<string>('');  
     const [inputValues, setInputValues] = useState<Record<string, string>>({
-        Demand: '',
-        Initial_Inventory: '',
-        Safety_Stock: '',
+        demand: '',
+        initialInventory: '',
+        safetyStock: '',
     });
 
-    const handleCreateClick = () => {
-        navigate("/info_record")
+    const fetchData = async () => {
+        //Validação dos dados antes do POST
+        if(inputValues.demand != "" && inputValues.initialInventory != "" && inputValues.demand != "0" && inputValues.initialInventory != "0"){
+            try{
+                    console.log("safety: ", inputValues.safetyStock)
+                    //POST para os dados
+                    const response = await axios.post("http://localhost:8081/material", {
+                        demand: inputValues.demand, //Enviando o valor do input do demand
+                        initialInventory: inputValues.initialInventory, //Enviando o valor do initialInventory
+                        materialCode: materialsCodes[selectedOption],
+                        safetyStock: inputValues.safetyStock
+                    });
+                    
+                    console.log("Dados enviados:", response.data)
+                    setPopUp(true)
+
+                    setTimeout(() => {
+                        setPopUp(false);
+                        navigate("/info_record")
+                    }, 3000);
+            }catch (error){
+                setPopUpErrorText("Erro na conexão do servidor!")
+                setPopUpError(true)
+                setTimeout(() =>{
+                    setPopUpError(false)
+                }, 3000);
+                console.log("Erro na conexão: ", error)
+            }
+        }else{
+            setPopUpErrorText("A Demand e InicialInventory devem ser maior que 0!")
+            console.log("não salvou nada")
+            setPopUpError(true)
+            setTimeout(() =>{
+                setPopUpError(false)
+            }, 3000)
+           
+        }
     }
- 
+
     const options = ['Material A - (Pen)', 'Material B - (Package)'];
  
     const materialsCodes: Record<string, string> = {
@@ -38,19 +78,19 @@ const RegisterItem: React.FC  = () => {
         e.preventDefault();
         console.log(inputValues);
     };
- 
+    
+
     const handleButtonSubmit = () => {
-        console.log("Material Selected: ", selectedOption, "Valores: ", inputValues.input1, inputValues.input2, inputValues.input3);
+        console.log("Material Selected: ", materialsCodes[selectedOption], "Valores: ", inputValues.input1, inputValues.input2);
     };
  
-    const handleChange = (id: string) => (event: React.ChangeEvent<HTMLInputElement>) =>{
-        setInputValues(prevState => ({
-            ...prevState,
-            [id]: event.target.value
+    const handleChange = (field: string, value: string) => {
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            [field]: value
         }));
-    };
-   
- 
+    }
+
     return(
         <section className="pt-[73px] flex flex-col justify-center items-center gap-10 pb-[365px]">
             <div className="p-10 flex flex-col gap-14 justify-center items-center">
@@ -80,34 +120,40 @@ const RegisterItem: React.FC  = () => {
                                 onSelect={handleSelect}
                             />
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-3">
                             <NumberInput
                                 label="Demand"
                                 placeholder="0"
-                                value={inputValues.input1}
-                                method={handleChange('input1')}
+                                value={inputValues.demand}
+                                method={(demand) => handleChange('demand', demand)} //Capturando mudanças
                                
                             />
                             <NumberInput
                                 label="Initial Inventory"
                                 placeholder="0"
-                                classname="w-[110px]"
-                                value={inputValues.input2}
-                                method={handleChange('input2')}
+                                classname="w-[112px]"
+                                value={inputValues.initialInventory}
+                                method={(initialInventory) => handleChange('initialInventory', initialInventory)}
                             />
+
                             <NumberInput
                                 label="Safety Stock"
                                 placeholder="0"
-                                value={inputValues.input3}
-                                method={handleChange('input3')}
+                                value={inputValues.safetyStock}
+                                method={(safetyStock) => handleChange('safetyStock', safetyStock)}
                             />
                         </div>
                         <div className="flex justify-center items-center p-[130px]">
                             <Button
                                 text="Create"
-                                onClick={handleCreateClick}
+                                onClick={fetchData}
                             />
+                            {popUpError && <PopUpError title={popUpErrorText}/>}
+                            {popUp && <PopUpOk title="Material Created"/>}
+                                                  
                         </div>
+                        
+                                    
                     </Forms>
                 </Box>
             </div>

@@ -1,30 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TitleBig from "../../components/Title/Title_h1";
 import SubTitle from "../../components/SubTitle/SubTitle";
-import { data_value_A, data_value_b} from "./data";
 import Box from "../../components/Box/Box";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
 import PopUp from "../../components/PopUp/PopUp";
+import axios from "axios";
+import PopUpOk from "../../components/PopUpOk/PopUpOk";
+import PopUpError from "../../components/PopUpError/PopUpError";
 
 
 const Manufacturing: React.FC = () => {
-    
     const [search, setSearch] = useState("");
     const [popUp, setPopUp] = useState(false);
-    const [selectedMaterial, setSelectedMaterial] = useState<"A" | "B">("A")
+    const [selectedMaterial, setSelectedMaterial] = useState<"Material A - (Pen)" | "Material B - (Package)" | "">("")
+    const [data, setData] = useState<any[]>([]); //Armazenando os dados da API
 
-    const filteredData =
-    (selectedMaterial === "A" ? data_value_A : data_value_b).filter((item) =>
-        search.toLowerCase() === ""
-            ? item
-            : item.week.toLowerCase().includes(search.toLowerCase())
+    const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
+        try{
+            //Escolher a url de acordo com oq for clicado A ou B
+            const url = material === "Material A - (Pen)"
+                ? "http://localhost:8081/purchaseOrder/allMaterialsA"
+                : "http://localhost:8081/purchaseOrder/allMaterialsB";
+
+            const response = await axios.get(url);
+
+            //Filtrando os materiais com base no materialText da API
+            const filteredMaterials = response.data.filter((item: any) =>
+                 item.materialName.toLowerCase() === material.toLowerCase()
+            );
+
+            setData(filteredMaterials);
+            console.log("Dados pegos:", response.data)
+            console.log("Materiais filtrados: ", filteredMaterials)
+        }catch (error){
+            console.log("Erro na conexão: ", error)
+        }
+    } 
+
+    const handleMaterialSelect = (material: "Material A - (Pen)" | "Material B - (Package)") => {
+        setSelectedMaterial(material);
+        setSearch(""); 
+        fetchData(material)
+    };
+
+    const filterData = data.filter((item) =>
+        search.toLowerCase() === "" ? item : item.week.toLowerCase().includes(search.toLowerCase)
     );
 
-    const handleMaterialSelect = (material: "A" | "B") => {
-        setSelectedMaterial(material);
-        setSearch("");
-    };
+    useEffect(() =>{
+        fetchData("Material A - (Pen)");
+    }, []);
 
     return (
         <section className="pt-[73px] flex flex-col justify-center items-center gap-10 pb-20">
@@ -45,11 +71,11 @@ const Manufacturing: React.FC = () => {
                         <div className="flex justify-center items-center w-[210px] p-2 gap-2">
                             <Button
                                 text="Material A"
-                                onClick={() => handleMaterialSelect("A")}
+                                onClick={() => handleMaterialSelect("Material A - (Pen)")}
                             />
                             <Button
                                 text="Material B"
-                                onClick={() => handleMaterialSelect("B")}
+                                onClick={() => handleMaterialSelect("Material B - (Package)")}
                             />
                         </div>
                     </div>
@@ -65,17 +91,16 @@ const Manufacturing: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody className="text-base">
-                            {filteredData.length > 0 ? (
-                                filteredData.map((item) => (
+                            {filterData.length > 0 ? (
+                                filterData.map((item, index) => (
                                     <tr
                                         className="border-b last:border-none hover:bg-gray-100 transition-colors"
-                                        key={item.id}
-                                    >
-                                        <td className="p-4">{item.week}</td>
-                                        <td className="p-4">{item.material}</td>
-                                        <td className="p-4">{item.order_placed} pcs</td>
-                                        <td className="p-4">{item.order_received} pcs</td>
+                                        key={index}>
 
+                                        <td className="p-4">{item.week}</td>
+                                        <td className="p-4">{item.materialName}</td>
+                                        <td className="p-4">{item.orderPlaced} pcs</td>
+                                        <td className="p-4">{item.orderReceived} pcs</td>
                                     </tr>
                                 ))
                             ) : (

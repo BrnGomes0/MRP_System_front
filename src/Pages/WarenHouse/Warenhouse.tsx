@@ -1,29 +1,51 @@
 import React from "react";
 import TitleBig from "../../components/Title/Title_h1";
 import SubTitle from "../../components/SubTitle/SubTitle";
-import {data_values_materials_A, data_values_materials_B} from "./data"
 import Box from "../../components/Box/Box";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
+import axios from "axios";
+
 const Warenhouse: React.FC = () => {
-
     const [search, setSearch] = useState("");
-    const [selectedMaterial, setSelectedMaterial] = useState<"A" | "B">("A")
-
-
-    const filteredData =
-    (selectedMaterial === "A" ? data_values_materials_A : data_values_materials_B).filter((item) =>
-        search.toLowerCase() === ""
-            ? item
-            : item.week.toLowerCase().includes(search.toLowerCase())
-    );
-
-    const handleMaterialSelect = (material: "A" | "B") => {
+    const [id, setId] = useState<string>('')
+    const [selectedMaterial, setSelectedMaterial] = useState<"Material A - (Pen)" | "Material B - (Package)">("Material A - (Pen)")
+    const [data, setData] = useState<any[]>([]);
+    
+    const handleMaterialSelect = (material: "Material A - (Pen)" | "Material B - (Package)") => {
         setSelectedMaterial(material);
         setSearch(""); 
     };
+
+    const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
+        try{
+            const responseData = await axios.get("http://localhost:8081/inventory/all")
+            //Filtrando os materiais com base no materialText da API
+            const filteredMaterials = responseData.data.filter((item: any) =>
+                item.materialName.toLowerCase() === material.toLowerCase()
+           );
+
+            setData(filteredMaterials)
+
+            if(filteredMaterials.length > 0){
+                console.log(responseData.data)
+            }else{
+            console.log("Nenhum dado encontrado no Back-End")
+            }
+        }catch(error){
+        console.log("Erro na conexão do backend", error)
+        }
+    }
+
+    useEffect(() => {
+        if(selectedMaterial){
+            fetchData(selectedMaterial);
+        }
+    }, [selectedMaterial]);
+
     return(
+        
         <section className="pt-[73px] flex flex-col justify-center items-center gap-10 pb-24">
             <div className="p-10 flex flex-col text-center gap-14">
                 <div>
@@ -44,11 +66,11 @@ const Warenhouse: React.FC = () => {
                         <div className="flex justify-center items-center w-[210px] p-2 gap-2">
                             <Button
                                 text="Material A"
-                                onClick={() => handleMaterialSelect("A")}
+                                onClick={() => handleMaterialSelect("Material A - (Pen)")}
                             />
                             <Button
                                 text="Material B"
-                                onClick={() => handleMaterialSelect("B")}
+                                onClick={() => handleMaterialSelect("Material B - (Package)")}
                             />
                         </div>
                     </div>
@@ -59,32 +81,31 @@ const Warenhouse: React.FC = () => {
                                 <tr>
                                     <th className="p-4">Week</th>
                                     <th className="p-4">Material</th>
-                                    <th className="p-4">Safety Stock </th>
-                                    <th className="p-4">Consumption</th>
-                                    <th className="p-4">Inventory</th>
+                                    <th className="p-4">Safety Stock</th>
+                                    <th className="p-4">Demand</th>
+                                    <th className="p-4">Inicial Inventory</th>
+                                    <th className="p-4">Final Inventory</th>
                                 </tr>
                             </thead>
                             <tbody className="text-base">
-                                {filteredData.length > 0 ? (
-                                    filteredData.map((item) => (
-                                        <tr
-                                            className="border-b last:border-none hover:bg-gray-100 transition-colors"
-                                            key={item.id}
-                                        >
-                                            <td className="p-4">{item.week}</td>
-                                            <td className="p-4">{item.material}</td>
-                                            <td className="p-4">{item.safety_stock} pcs</td>
-                                            <td className="p-4">{item.consumption} pcs</td>
-                                            <td className="p-4">{item.inventory} pcs</td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr className="border-b last:border-none hover:bg-gray-100 transition-colors">
-                                        <td colSpan={8} className="p-4">
-                                            No results found
-                                        </td>
-                                    </tr>
-                                )}
+                                {data.length > 0 ? (
+                                    data.map((item: any) => (
+                                            <tr className="border-b last:border-none hover:bg-gray-100 transition-colors" key={id}>
+                                                <td className="p-4">{item.week}</td>
+                                                <td className="p-4">{item.materialName}</td>
+                                                <td className="p-4">{item.safetyStock} pcs</td>
+                                                <td className="p-4">{item.demand} pcs</td>
+                                                <td className="p-4">{item.initialInventory} pcs</td>
+                                                <td className="p-4">{item.finalInventory} pcs</td>
+                                            </tr>
+                                            ))
+                                        ) : (
+                                            <tr className="border-b last:border-none hover:bg-gray-100 transition-colors">
+                                                <td colSpan={8} className="p-4">
+                                                    No results found
+                                                </td>
+                                            </tr>
+                                        )}
                             </tbody>
                         </table>
                     </div>

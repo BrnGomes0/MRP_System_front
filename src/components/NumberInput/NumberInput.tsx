@@ -6,7 +6,7 @@ interface InputNumberProps{
     placeholder: string;
     value?: string;
     label: string;
-    method?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Atualizado para ser uma função de callback
+    method?: (value: string) => void; // Atualizado para ser uma função de callback
     style?: React.CSSProperties
 }
 
@@ -18,6 +18,13 @@ const NumberInput: React.FC<InputNumberProps> = ({classname, placeholder, value,
         }
         event.preventDefault();
     };
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const inputValue = event.target.value;
+        if (method) {
+            method(inputValue); //Chamando a função passada pelo method 
+        }
+    }
 
     
     return(
@@ -31,7 +38,7 @@ const NumberInput: React.FC<InputNumberProps> = ({classname, placeholder, value,
                 className={`w-[88px] h-[41px] p-2 border-[1.2px] border-gray-400 rounded-md ${classname}`}
                 value={value}
                 min="0"
-                onChange={method}
+                onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 style={style}
             />

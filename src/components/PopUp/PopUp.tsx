@@ -1,21 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import TitleSmall from "../Title/Title_h3";
 import SubTitle from "../SubTitle/SubTitle";
 import { useEffect } from "react";
 import NumberInput from "../NumberInput/NumberInput";
 import Button from "../Button/Button";
+import axios from "axios";
+import PopUpOk from "../PopUpOk/PopUpOk";
+import PopUpError from "../PopUpError/PopUpError";
+import DropDown from "../DropDown/DropDown";
 
 interface PopUpProps{
     onClose?: () => void
 }
 
 const PopUp: React.FC<PopUpProps>= ({onClose}) => {
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.body.style.overflow = "auto";
-        };
-    }, []);
+    const [popUp, setPopUp] = useState(false);
+    const [popUpError, setPopUpError] = useState(false);
+    const [option, setSelectedOption] = useState<"Material A - (Pen)" | "Material B - (Package)">("Material A - (Pen)")
+    const [inputValues, setInputValues] = useState<Record<string, string>>({
+        materialConsumption: '',
+        orderReceived: ''
+    })
+
+    const handleMaterialChange = (value : string) =>{
+        setSelectedOption(value as "Material A - (Pen)" | "Material B - (Package)");
+    }
+
+    const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
+        try{
+            //pegar o ultimo inventory criado
+            const dataInventory = await axios.get("http://localhost:8081/inventory/all")
+
+            console.log("Material do tipo: ", material)
+            const filteredMaterials = dataInventory.data.filter((item: any) =>
+                item.materialName.toLowerCase() === material.toLowerCase()
+            );
+
+            if(filteredMaterials.length > 0){
+                const firstMaterial = filteredMaterials[0].inventory_id;
+
+                const urlPutData = await axios.put(`http://localhost:8081/purchaseOrder/updatePurchasingOrder/${firstMaterial}`,{
+                    demand: inputValues.materialConsumption,
+                    orderReceived: inputValues.orderReceived
+                });
+
+                setPopUp(true)
+
+                setTimeout(() =>{
+                    setPopUp(false)
+                }, 3000)
+            }
+        }catch(error){
+            console.log("Erro: ", error)
+        }
+    }
+
+    const handleChange = (field: string, value: string) => {
+        setInputValues((prevValues) => ({
+            ...prevValues, 
+            [field]: value
+        }));
+    }
+
+    const options = ["Material A - (Pen)", "Material B - (Package)"]
+    
     return(
         <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur-sm flex justify-center items-center z-50">
             <div className="p-4 bg-white w-[406px] h-[366px] rounded-xl flex flex-col justify-center items-center gap-6 shadow-lg">
@@ -30,11 +78,22 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
                 </div>
                 <div className="flex flex-col">
                     <div>
+                        <DropDown
+                            label="Material"
+                            classname="w-full"
+                            placeholder="Select Material"
+                            options={options}
+                            onSelect={handleMaterialChange}
+                        /> 
+                    </div>
+                    <div>
                         <NumberInput
                             label="Material Consumption"
                             placeholder="0"
                             classname="text-center"
                             style={{width: 165}}
+                            value={inputValues.materialConsumption}
+                            method={(materialConsumption) => handleChange('materialConsumption', materialConsumption)}
                         />
                     </div>
                     <div>
@@ -43,6 +102,8 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
                             placeholder="0"
                             classname="text-center"
                             style={{width: 114}}
+                            value={inputValues.orderReceived}
+                            method={(orderReceived) => handleChange("orderReceived", orderReceived)}
                         />
                     </div>
                 </div>
@@ -50,7 +111,11 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
                     <Button
                         text="Send"
                         classname="w-[90px] h-[30px]"
+                        onClick={() => fetchData(option)}
                     />
+                    {popUp && <PopUpOk title="New values updated"/>}
+                    {popUpError && <PopUpError title="Error for put the new values"/>}
+
                 </div>
             </div>
         </div>
