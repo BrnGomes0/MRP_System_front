@@ -5,17 +5,15 @@ import { useEffect } from "react";
 import NumberInput from "../NumberInput/NumberInput";
 import Button from "../Button/Button";
 import axios from "axios";
-import PopUpOk from "../PopUpOk/PopUpOk";
-import PopUpError from "../PopUpError/PopUpError";
+import PopUpReturn from "../PopUpReturn/PopUpReturn";
 import DropDown from "../DropDown/DropDown";
 
 interface PopUpProps{
     onClose?: () => void
 }
 
-const PopUp: React.FC<PopUpProps>= ({onClose}) => {
-    const [popUp, setPopUp] = useState(false);
-    const [popUpError, setPopUpError] = useState(false);
+const PopUp: React.FC<PopUpProps>= ({onClose, }) => {
+    const [popUp, setPopUp] = useState<{title: string, imageUrl?: string } | null > (null);
     const [option, setSelectedOption] = useState<"Material A - (Pen)" | "Material B - (Package)">("Material A - (Pen)")
     const [inputValues, setInputValues] = useState<Record<string, string>>({
         materialConsumption: '',
@@ -44,13 +42,18 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
                     orderReceived: inputValues.orderReceived
                 });
 
-                setPopUp(true)
+                setPopUp({title: "New values updated", imageUrl: "/src/assets/correct.png"})
 
                 setTimeout(() =>{
-                    setPopUp(false)
+                    setPopUp(null)
                 }, 3000)
             }
         }catch(error){
+            setPopUp({title: "Error for put the new values", imageUrl: "/src/assets/erro.png"})
+
+            setTimeout(() =>{
+                setPopUp(null)
+            }, 3000)
             console.log("Erro: ", error)
         }
     }
@@ -66,7 +69,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     
     return(
         <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur-sm flex justify-center items-center z-50">
-            <div className="p-4 bg-white w-[406px] h-[366px] rounded-xl flex flex-col justify-center items-center gap-6 shadow-lg">
+            <div className="p-4 bg-white w-[406px] h-[430px] rounded-xl flex flex-col justify-center items-center gap-6 shadow-lg">
             <button className="place-self-end font-bold" onClick={onClose}>X</button>
                 <div className="flex flex-col text-center">
                     <TitleSmall
@@ -113,8 +116,12 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
                         classname="w-[90px] h-[30px]"
                         onClick={() => fetchData(option)}
                     />
-                    {popUp && <PopUpOk title="New values updated"/>}
-                    {popUpError && <PopUpError title="Error for put the new values"/>}
+                    {popUp &&(
+                        <PopUpReturn 
+                            title={popUp.title}
+                            imageUrl={popUp.imageUrl}
+                            />
+                    )};
 
                 </div>
             </div>

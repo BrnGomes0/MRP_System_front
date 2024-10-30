@@ -5,9 +5,11 @@ import TitleSmall from "../Title/Title_h3";
 interface PopUpProps{
     onClose?: () => void
     title: string
+    imageUrl?: string;
+    className?: string;
 }
 
-const PopUpOk: React.FC<PopUpProps> = ({onClose, title}) =>{
+const PopUpOk: React.FC<PopUpProps> = ({onClose, title, imageUrl, className}) =>{
     const [showPopUp, setShowPopUp] = useState(true);
 
     useEffect(() => {
@@ -27,8 +29,10 @@ const PopUpOk: React.FC<PopUpProps> = ({onClose, title}) =>{
         <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur-sm flex justify-center items-center z-50">
             <div className="p-4 bg-white w-[406px] h-[366px] rounded-xl flex flex-col justify-center items-center gap-6 shadow-lg">
                 <div className="flex flex-col text-center">
-                    <div className="w-[150px] pl-8">
-                        <img src="/src/assets/correct.png"/>
+                    <div>
+                        {imageUrl && (
+                            <img src={imageUrl} alt="Popup Image" className={className || "w-[100px] h-25"}/>
+                        )}
                     </div>
 
                     <div>

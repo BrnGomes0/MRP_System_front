@@ -9,14 +9,11 @@ import NumberInput from "../../components/NumberInput/NumberInput";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; 
-import PopUpOk from "../../components/PopUpOk/PopUpOk";
-import PopUpError from "../../components/PopUpError/PopUpError";
+import PopUpReturn from "../../components/PopUpReturn/PopUpReturn";
 
 const RegisterItem: React.FC  = () => {
     const navigate = useNavigate()
-    const [popUp, setPopUp] = useState(false);
-    const [popUpError, setPopUpError] = useState(false);
-    const [popUpErrorText, setPopUpErrorText] = useState<string>('');
+    const [popUp, setPopUp] = useState<{ title: string; imageUrl?: string; className: string } | null > (null);
     const [selectedOption, setSelectedOption] = useState<string>('');  
     const [inputValues, setInputValues] = useState<Record<string, string>>({
         demand: '',
@@ -38,26 +35,24 @@ const RegisterItem: React.FC  = () => {
                     });
                     
                     console.log("Dados enviados:", response.data)
-                    setPopUp(true)
+                    setPopUp({title: "Material Created", imageUrl: "/src/assets/correct.png", className: "w-[180px] pl-28"});
 
                     setTimeout(() => {
-                        setPopUp(false);
+                        setPopUp(null);
                         navigate("/info_record")
                     }, 3000);
             }catch (error){
-                setPopUpErrorText("Erro na conexão do servidor!")
-                setPopUpError(true)
+                setPopUp({title: "Erro na conexão com o banco de dados", imageUrl: "/src/assets/erro.png", className: "w-[1000px] h-[1000px]"})
                 setTimeout(() =>{
-                    setPopUpError(false)
+                    setPopUp(null)
                 }, 3000);
                 console.log("Erro na conexão: ", error)
             }
         }else{
-            setPopUpErrorText("A Demand e InicialInventory devem ser maior que 0!")
             console.log("não salvou nada")
-            setPopUpError(true)
+            setPopUp({title: "A Demand e InicialInventory devem ser maior que 0!", imageUrl: "/src/assets/erro.png", className: "w-[1000px] h-[1000px]"})
             setTimeout(() =>{
-                setPopUpError(false)
+                setPopUp(null)
             }, 3000)
            
         }
@@ -104,7 +99,7 @@ const RegisterItem: React.FC  = () => {
                         classname="tex-center"
                     />
                 </div>
-                <Box classname="w-[380px] h-[210px]">
+                <Box classname="w-[381px] h-[210px]">
                     <Forms onSubmit={handleSubmit}>
                         <div className="flex gap-2 ">
                             <StaticInput
@@ -131,7 +126,7 @@ const RegisterItem: React.FC  = () => {
                             <NumberInput
                                 label="Initial Inventory"
                                 placeholder="0"
-                                classname="w-[112px]"
+                                classname="w-[113px]"
                                 value={inputValues.initialInventory}
                                 method={(initialInventory) => handleChange('initialInventory', initialInventory)}
                             />
@@ -143,17 +138,18 @@ const RegisterItem: React.FC  = () => {
                                 method={(safetyStock) => handleChange('safetyStock', safetyStock)}
                             />
                         </div>
-                        <div className="flex justify-center items-center p-[130px]">
-                            <Button
-                                text="Create"
-                                onClick={fetchData}
-                            />
-                            {popUpError && <PopUpError title={popUpErrorText}/>}
-                            {popUp && <PopUpOk title="Material Created"/>}
-                                                  
-                        </div>
-                        
-                                    
+                            <div className="flex justify-center items-center p-[130px]">
+                                <Button
+                                    text="Create"
+                                    onClick={fetchData}
+                                />
+                                {popUp && (
+                                    <PopUpReturn
+                                        title={popUp.title}
+                                        imageUrl={popUp.imageUrl}
+                                        />
+                                )}
+                            </div>
                     </Forms>
                 </Box>
             </div>

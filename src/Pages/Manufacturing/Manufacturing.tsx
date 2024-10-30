@@ -6,7 +6,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
 import PopUp from "../../components/PopUp/PopUp";
 import axios from "axios";
-import PopUpOk from "../../components/PopUpOk/PopUpOk";
+import PopUpOk from "../../components/PopUpReturn/PopUpReturn";
 import PopUpError from "../../components/PopUpError/PopUpError";
 
 

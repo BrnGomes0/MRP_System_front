@@ -9,17 +9,14 @@ import PriceInput from "../../components/PriceInput/PriceInput";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import PopUpError from "../../components/PopUpError/PopUpError";
-import PopUpOk from "../../components/PopUpOk/PopUpOk";
+import PopUpReturn from "../../components/PopUpReturn/PopUpReturn";
 
 const RegisterAInforRecord: React.FC = () => {
     const navigate = useNavigate();
     const [materialCode, setMaterialCode] = useState<string>('');
     const [materialText, setMaterialText] = useState<string>('');
     const [supplierCode, setSupplierCode] = useState<string>('');
-    const [popUp, setPopUp] = useState(false);
-    const [popUpError, setPopUpError] = useState(false);
-    const [popUpErrorText, setPopUpErroText] = useState<string>('');
+    const [popUp, setPopUp] = useState<{ title: string; imageUrl?: string } | null > (null);
     const [price, setPrice] = useState<string>("0.00");
     const [leadTime, setLeadTime] = useState<string>("0");
 
@@ -78,26 +75,24 @@ const RegisterAInforRecord: React.FC = () => {
                     console.log("Dados enviados: ", materialPost)
                     console.log("Post no inventory: ", inventoryPost)
                     console.log("Post no purchaseOrder: ", purchaseOrderPost)
-                    setPopUp(true)
+                    setPopUp({title: "Info-record created", imageUrl: "/src/assets/correct.png"})
 
                     setTimeout(() =>{
-                        setPopUp(false)                    
+                        setPopUp(null)                    
                         navigate("/inventory_management")
                     }, 3000)
                 }catch (error){
-                        setPopUpErroText("Error in creation of Info-Record")
-                        setPopUpError(true)
+                        setPopUp({title: "Error in creation of Info-Record", imageUrl: "/src/assets/erro.png" })
 
                         setTimeout(() =>{
-                            setPopUpError(false)
+                            setPopUp(null)
                         }, 3000)
                         console.log("Erro ao enviar os dados: ", error)
                 }
             }else{
-                setPopUpErroText("Para este exercício, apenas LeadTime 1 deve ser considerado!")
-                setPopUpError(true)
+                setPopUp({title: "Para este exercício, apenas LeadTime 1 deve ser considerado!", imageUrl: "/src/assets/erro.png"})
                 setTimeout(() =>{
-                    setPopUpError(false)
+                    setPopUp(null)
                 }, 3000)
         }
     };
@@ -163,8 +158,12 @@ const RegisterAInforRecord: React.FC = () => {
                                 text="Create"
                                 onClick={postData}
                             />
-                            {popUpError && <PopUpError title={popUpErrorText}/>}
-                            {popUp && <PopUpOk title="Info-record created"/>}
+                            {popUp &&(
+                                <PopUpReturn 
+                                    title={popUp.title}
+                                    imageUrl={popUp.imageUrl}
+                                />
+                            )};
                     </div>
                 </Forms>
                 

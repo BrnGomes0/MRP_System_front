@@ -4,9 +4,24 @@ import TitleBig from "../../components/Title/Title_h1";
 import SubTitle from "../../components/SubTitle/SubTitle";
 import SubTitleBold from "../../components/SubTitle/SubTitleBold";
 import Button from "../../components/Button/Button";
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "../../sso/authConfig";
 
 
 const Login: React.FC = () => {
+    const { instance } = useMsal();
+
+    const handleLogin = (loginType) => {
+        if (loginType === "popup"){
+            instance.loginPopup({
+                ...loginRequest,
+                redirectUri: "/use_case"
+            });
+        } else if (loginType === "redirect"){
+            instance.loginRedirect(loginRequest);
+        }
+    };
+    
     return(
         <section
             style={{
@@ -35,6 +50,7 @@ const Login: React.FC = () => {
                         <div className="flex flex-col p-2 justify-center items-center gap-2">
                             <Button
                                 text="Login"
+                                onClick={() => handleLogin("popup")}
                             />
                             <SubTitleBold
                                 subTitleBold="*Bosch employees only. Single Sign-On required."
