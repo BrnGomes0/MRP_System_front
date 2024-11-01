@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import imageBosch from "../../assets/login_bosch.png"
 import TitleBig from "../../components/Title/Title_h1";
 import SubTitle from "../../components/SubTitle/SubTitle";
@@ -6,22 +6,31 @@ import SubTitleBold from "../../components/SubTitle/SubTitleBold";
 import Button from "../../components/Button/Button";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../sso/authConfig";
+import { useNavigate } from "react-router-dom" 
 
 
 const Login: React.FC = () => {
     const { instance } = useMsal();
+    const { accounts, inProgress} = useMsal();
+    const navigate = useNavigate();
 
     const handleLogin = (loginType) => {
         if (loginType === "popup"){
             instance.loginPopup({
                 ...loginRequest,
-                redirectUri: "/use_case"
+                redirectUri: "/use_case",
             });
         } else if (loginType === "redirect"){
             instance.loginRedirect(loginRequest);
         }
     };
-    
+
+    useEffect(() =>{
+        if(accounts[0] && inProgress == "none"){
+            navigate("/use_case");
+        }
+    }, [accounts, inProgress, navigate])
+
     return(
         <section
             style={{
@@ -55,12 +64,13 @@ const Login: React.FC = () => {
                             <SubTitleBold
                                 subTitleBold="*Bosch employees only. Single Sign-On required."
                                 classname="text-black text-[9px] w-[180px]"
-                            />    
+                            />   
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+
+            </section>
     )
 }
 

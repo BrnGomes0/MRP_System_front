@@ -43,8 +43,10 @@ export async function callMsGraph() {
         }
 
         const graphMeData = await graphMeResponse.json();
+        
         const url = window.URL || window.webkitURL;
         const blobUrl = url.createObjectURL(data);
+        
         return { graphMeData, blobUrl };
         
     } catch (error) {

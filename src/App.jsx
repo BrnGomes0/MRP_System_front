@@ -11,9 +11,7 @@ import Warenhouse from "./Pages/WarenHouse/WarenHouse";
 import Manufacturing from "./Pages/Manufacturing/Manufacturing";
 import Login from "./Pages/Login/Login";
 import Error from "./Pages/ErrorPage/Error";
-
 import ProtectedRoute from "./sso/protectedRoute";
-
 
 const App = () => {
   const location = useLocation();
@@ -26,11 +24,11 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Login/>}/>
             <Route path="/login" element={<Login />} />
-            <Route path="/register_a_item" element={<ProtectedRoute> <RegisterItem /> </ProtectedRoute>} />
+            <Route path="/register_a_item" element={<ProtectedRoute><RegisterItem /> </ProtectedRoute>} />
             <Route path="/use_case" element={<ProtectedRoute> <UseCase /> </ProtectedRoute>} />
             <Route path="/info_record" element={<ProtectedRoute> <RegisterAInforRecord /> </ProtectedRoute>} />
             <Route path="/inventory_management" element={<ProtectedRoute> <Warenhouse /> </ProtectedRoute>} />
-            <Route path="/po_management" element={<ProtectedRoute> <Manufacturing /> </ProtectedRoute>} />
+            <Route path="/po_management" element={<ProtectedRoute> <Manufacturing /> </ProtectedRoute>}/>
             <Route path="*" element={<Error/>}/>
         </Routes>
       {!isLoginPage && <Footer/>}

@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import axios from "axios";
 import PopUpReturn from "../PopUpReturn/PopUpReturn";
 import DropDown from "../DropDown/DropDown";
+import StaticInput from "../StaticInput/StaticInput";
 
 interface PopUpProps{
     onClose?: () => void
@@ -15,6 +16,7 @@ interface PopUpProps{
 const PopUp: React.FC<PopUpProps>= ({onClose, }) => {
     const [popUp, setPopUp] = useState<{title: string, imageUrl?: string } | null > (null);
     const [option, setSelectedOption] = useState<"Material A - (Pen)" | "Material B - (Package)">("Material A - (Pen)")
+    const [week, setWeek] = useState<string>("");
     const [inputValues, setInputValues] = useState<Record<string, string>>({
         materialConsumption: '',
         orderReceived: ''
@@ -23,7 +25,17 @@ const PopUp: React.FC<PopUpProps>= ({onClose, }) => {
     const handleMaterialChange = (value : string) =>{
         setSelectedOption(value as "Material A - (Pen)" | "Material B - (Package)");
     }
+    
+    const fetchDataGetWeek = async() =>{
+        try{
+            const dataGetWeek = await axios.get("http://localhost:8081/inventory/all")
+            const valores = dataGetWeek.data.length
 
+            setWeek(dataGetWeek.data[valores-1].week)
+        }catch(error){
+        }
+    }
+    
     const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
         try{
             //pegar o ultimo inventory criado
@@ -34,7 +46,23 @@ const PopUp: React.FC<PopUpProps>= ({onClose, }) => {
                 item.materialName.toLowerCase() === material.toLowerCase()
             );
 
-            if(filteredMaterials.length > 0){
+            const valoresCriados = filteredMaterials.length
+
+            if(valoresCriados > 1){
+                const putMaterial = filteredMaterials[valoresCriados-1].inventory_id;
+
+                const urlPutData = await axios.put(`http://localhost:8081/purchaseOrder/updatePurchasingOrder/${putMaterial}`,{
+                    demand: inputValues.materialConsumption,
+                    orderReceived: inputValues.orderReceived
+                });
+
+                setPopUp({title: "New values updated", imageUrl: "/src/assets/correct.png"})
+
+                setTimeout(() =>{
+                    setPopUp(null)
+                }, 3000)
+            } else if(valoresCriados == 1){
+
                 const firstMaterial = filteredMaterials[0].inventory_id;
 
                 const urlPutData = await axios.put(`http://localhost:8081/purchaseOrder/updatePurchasingOrder/${firstMaterial}`,{
@@ -66,6 +94,10 @@ const PopUp: React.FC<PopUpProps>= ({onClose, }) => {
     }
 
     const options = ["Material A - (Pen)", "Material B - (Package)"]
+
+    useEffect(() =>{
+        fetchDataGetWeek();
+    }, []);
     
     return(
         <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur-sm flex justify-center items-center z-50">
@@ -79,8 +111,14 @@ const PopUp: React.FC<PopUpProps>= ({onClose, }) => {
                         subTitle="Put the new values"
                     />
                 </div>
-                <div className="flex flex-col">
-                    <div>
+                <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-row">
+                        <StaticInput
+                                label="Currently Week"
+                                value={week}
+                                style={{width: 104}}
+                        />
+
                         <DropDown
                             label="Material"
                             classname="w-full"
@@ -89,6 +127,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose, }) => {
                             onSelect={handleMaterialChange}
                         /> 
                     </div>
+
                     <div>
                         <NumberInput
                             label="Material Consumption"

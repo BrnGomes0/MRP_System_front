@@ -13,36 +13,38 @@ import PopUpReturn from "../../components/PopUpReturn/PopUpReturn";
 
 const RegisterItem: React.FC  = () => {
     const navigate = useNavigate()
-    const [popUp, setPopUp] = useState<{ title: string; imageUrl?: string; className: string } | null > (null);
-    const [selectedOption, setSelectedOption] = useState<string>('');  
-    const [inputValues, setInputValues] = useState<Record<string, string>>({
-        demand: '',
-        initialInventory: '',
-        safetyStock: '',
+    const [popUp, setPopUp] = useState<{ title: string; imageUrl?: string;} | null > (null);
+    const [selectedOption, setSelectedOption] = useState<string>("");  
+    const [inputValues, setInputValues] = useState<Record<string, number | string>>({
+        materialCode: '',
+        demand: 0,
+        inicialInventory: 0,
+        safetyStock: 0,
     });
 
     const fetchData = async () => {
         //Validação dos dados antes do POST
-        if(inputValues.demand != "" && inputValues.initialInventory != "" && inputValues.demand != "0" && inputValues.initialInventory != "0"){
+        if(inputValues.demand != 0 && inputValues.initialInventory != 0){
             try{
+                    console.log("oi", inputValues.materialCode)
                     console.log("safety: ", inputValues.safetyStock)
                     //POST para os dados
                     const response = await axios.post("http://localhost:8081/material", {
+                        materialCode: inputValues.materialCode,
                         demand: inputValues.demand, //Enviando o valor do input do demand
-                        initialInventory: inputValues.initialInventory, //Enviando o valor do initialInventory
-                        materialCode: materialsCodes[selectedOption],
+                        inicialInventory: inputValues.inicialInventory, //Enviando o valor do initialInventory
                         safetyStock: inputValues.safetyStock
                     });
                     
                     console.log("Dados enviados:", response.data)
-                    setPopUp({title: "Material Created", imageUrl: "/src/assets/correct.png", className: "w-[180px] pl-28"});
+                    setPopUp({title: "Material Created", imageUrl: "/src/assets/correct.png"});
 
                     setTimeout(() => {
                         setPopUp(null);
                         navigate("/info_record")
                     }, 3000);
             }catch (error){
-                setPopUp({title: "Erro na conexão com o banco de dados", imageUrl: "/src/assets/erro.png", className: "w-[1000px] h-[1000px]"})
+                setPopUp({title: "Erro na conexão com o banco de dados", imageUrl: "/src/assets/erro.png"})
                 setTimeout(() =>{
                     setPopUp(null)
                 }, 3000);
@@ -50,7 +52,7 @@ const RegisterItem: React.FC  = () => {
             }
         }else{
             console.log("não salvou nada")
-            setPopUp({title: "A Demand e InicialInventory devem ser maior que 0!", imageUrl: "/src/assets/erro.png", className: "w-[1000px] h-[1000px]"})
+            setPopUp({title: "A Demand e InicialInventory devem ser maior que 0!", imageUrl: "/src/assets/erro.png"})
             setTimeout(() =>{
                 setPopUp(null)
             }, 3000)
@@ -61,12 +63,22 @@ const RegisterItem: React.FC  = () => {
     const options = ['Material A - (Pen)', 'Material B - (Package)'];
  
     const materialsCodes: Record<string, string> = {
-        "Material A - (Pen)": "1230",
-        "Material B - (Package)": "1240",
+        "Material A - (Pen)":"1230", 
+        "Material B - (Package)" : "1240"
     }
+
+    const convertToNumber = (value: string | number): number => {
+        return typeof value === 'string' ? parseInt(value) || 0 : value;
+    };
  
     const handleSelect = (value: string) => {
         setSelectedOption(value);
+
+        // Atualiza o materialCode no estado
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            materialCode: materialsCodes[value], // Aqui, o valor selecionado é usado para definir o materialCode
+        }));
     };
  
     const handleSubmit = (e: React.FormEvent) => {
@@ -76,13 +88,13 @@ const RegisterItem: React.FC  = () => {
     
 
     const handleButtonSubmit = () => {
-        console.log("Material Selected: ", materialsCodes[selectedOption], "Valores: ", inputValues.input1, inputValues.input2);
+        console.log("Material Selected: ", selectedOption, "Valores: ", inputValues.input1, inputValues.input2);
     };
  
-    const handleChange = (field: string, value: string) => {
+    const handleChange = (field: keyof typeof inputValues, value: string) => {
         setInputValues((prevValues) => ({
             ...prevValues,
-            [field]: value
+            [field]: field === "materialCode" ? value : convertToNumber(value) || 0
         }));
     }
 
@@ -100,7 +112,7 @@ const RegisterItem: React.FC  = () => {
                     />
                 </div>
                 <Box classname="w-[381px] h-[210px]">
-                    <Forms onSubmit={handleSubmit}>
+                    <Forms onSubmit={(e) => { e.preventDefault(); console.log(inputValues); }}>
                         <div className="flex gap-2 ">
                             <StaticInput
                                 label="Material Code"
@@ -119,7 +131,7 @@ const RegisterItem: React.FC  = () => {
                             <NumberInput
                                 label="Demand"
                                 placeholder="0"
-                                value={inputValues.demand}
+                                value={convertToNumber(inputValues.demand)}
                                 method={(demand) => handleChange('demand', demand)} //Capturando mudanças
                                
                             />
@@ -127,18 +139,18 @@ const RegisterItem: React.FC  = () => {
                                 label="Initial Inventory"
                                 placeholder="0"
                                 classname="w-[113px]"
-                                value={inputValues.initialInventory}
-                                method={(initialInventory) => handleChange('initialInventory', initialInventory)}
+                                value={convertToNumber(inputValues.inicialInventory)}
+                                method={(inicialInventory) => handleChange('inicialInventory', inicialInventory)}
                             />
 
                             <NumberInput
                                 label="Safety Stock"
                                 placeholder="0"
-                                value={inputValues.safetyStock}
+                                value={convertToNumber(inputValues.safetyStock)}
                                 method={(safetyStock) => handleChange('safetyStock', safetyStock)}
                             />
                         </div>
-                            <div className="flex justify-center items-center p-[130px]">
+                            <div className="flex justify-center items p-[130px] ">
                                 <Button
                                     text="Create"
                                     onClick={fetchData}
