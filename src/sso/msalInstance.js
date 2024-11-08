@@ -1,22 +1,23 @@
 import { EventType, PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig } from "./authConfig";
 
-export const msalInstance = new PublicClientApplication(msalConfig);
+export const msalAccount = new PublicClientApplication(msalConfig);
 
-msalInstance.initialize().then(() => {
+msalAccount.initialize().then(() => {
   // Account selection logic is app dependent. Adjust as needed for different use cases.
-  const accounts = msalInstance.getAllAccounts();
+  const accounts = msalAccount.getAllAccounts();
   console.log(accounts);
+  console.log(accounts[0].name);
   
   if (accounts.length > 0) {
-    msalInstance.setActiveAccount(accounts[0]);
+    msalAccount.setActiveAccount(accounts[0]);
   }
 
-  msalInstance.addEventCallback((event) => {
+  msalAccount.addEventCallback((event) => {
     if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
       const payload = event.payload;
       const account = payload.account;
-      msalInstance.setActiveAccount(account);
+      msalAccount.setActiveAccount(account);
     }
   });
   

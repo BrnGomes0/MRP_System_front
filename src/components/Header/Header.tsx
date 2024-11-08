@@ -7,7 +7,7 @@ import { callMsGraph } from "../../sso/MsGraphApiCalls";
 import { loginRequest } from "../../sso/authConfig";
 import { InteractionRequiredAuthError, InteractionStatus,} from "@azure/msal-browser";
 import { useEffect } from "react";
-import Logoutbutton from "../../components/LogoutButton/LogoutButton.jsx"
+import Logoutbutton from "../LogoutButton/LogoutButton.js"
 import imgLogOut from "../../assets/exit.png"
 
 
@@ -83,13 +83,13 @@ useEffect(() => {
                 </div>
 
             </div>
-            <section className="navbar-content-child">
+            {/* <section className="navbar-content-child">
                 <div className="user-data navbar-content-child">
                     <div className="profile">
                         <img src={imageUrl} alt="img-profile" className="img-profile" />
                     </div>
                 </div>
-            </section>
+            </section> */}
         </nav>
     );
 };

@@ -1,17 +1,20 @@
 import PropTypes from 'prop-types';
-import { useMsal } from "@azure/msal-react";
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { Navigate } from "react-router-dom";
+import { useLogout } from '../components/LogoutProvider/LogoutProvider';
  
 const ProtectedRoute = ({ children }) => {
-  const { accounts } = useMsal();
+  const { isLoggingOut } = useLogout()
+  const isAuthenticated = useIsAuthenticated();
+  // const { accounts } = useMsal();
  
-  if (!accounts[0]) {
-    return <Navigate to="/login" />;
-  }
- 
-  return children;
+  // if (!accounts[0]) {
+  //   return <Navigate to="/login" />;
+  // }
+
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
-ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired
-};
+// ProtectedRoute.propTypes = {
+//   children: PropTypes.node.isRequired
+// };
 export default ProtectedRoute;
