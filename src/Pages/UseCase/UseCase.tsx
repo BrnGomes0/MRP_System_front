@@ -6,49 +6,38 @@ import TitleBig from "../../components/Title/Title_h1";
 import DescriptionTwoValues from "../../components/DescriptionTwoValues/DescriptionTwoValues";
 import SubTitleBold from "../../components/SubTitle/SubTitleBold";
 import { useMsal } from "@azure/msal-react";
-// import { callMsGraph } from "../../sso/MsGraphApiCalls.js";
+import { callMsGraph } from "../../sso/MsGraphApiCalls.js";
 import { useState, useEffect } from "react";
 
 const UseCase: React.FC = () => {
     const { accounts } = useMsal();
     const [userData, setUserData] = useState<any>(null);
-    // const [userPhoto, setUserPhoto] = useState<string | null>(null);
+    const [userPhoto, setUserPhoto] = useState<string | null>(null);
 
-    // useEffect(() =>{
-    //     const fetchData = async () => {
-    //         try {
-    //             const { graphMeData, blobUrl } = await callMsGraph();
-    //             setUserData(graphMeData);
-    //             // setUserPhoto(blobUrl);
-    //         } catch (error) {
-    //             console.error("Erro ao obter dados do Microsoft Graph:", error);
-    //         }
-    //     };
-
-    //     if (accounts && accounts.length > 0) {
-    //         fetchData();
-    //     }
-    // }, [accounts])
     useEffect(() =>{
-        if(accounts && accounts.length > 0){
-            setUserData(accounts[0].name)
-        }else{
-            console.log("Erro ao pegar o nome do usuário")
-        }
+        const fetchData = async () => {
+            try {
+                const { graphMeData, blobUrl } = await callMsGraph();
+                setUserData(graphMeData);
+                setUserPhoto(blobUrl);
+            } catch (error) {
+                console.error("Erro ao obter dados do Microsoft Graph:", error);
+            }
+        };
     }, [accounts])
 
     return(
         <section className="pt-[73px] flex justify-center items-center gap-10 pb-40">
             <div className="p-10 flex flex-col text-center gap-14">
                 {userData && (
-                    <div>
-                        <h2>Bem-vindo, {userData}</h2>
-                        {/* {userPhoto ? (
-                            <img src={userPhoto || ""} alt="Foto do Usuário" className="user-photo" />
-                        ) : (
-                            <p>Foto indisponível</p>
-                        )} */}
-                    </div>
+                    <div className="flex items-center gap-4">
+                        <div>
+                            <h2>Bem-vindo, {userData}</h2>
+                        </div>
+                        <div>
+                            <img src={userPhoto || ""} alt="Foto do Usuário" className="rounded-full border-2 border-gray-300 w-16 h-16 object-cover"/>
+                        </div>
+                    </div> 
                 )}
                 <div>
                     <TitleBig

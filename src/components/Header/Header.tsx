@@ -83,13 +83,13 @@ useEffect(() => {
                 </div>
 
             </div>
-            {/* <section className="navbar-content-child">
+            <section className="navbar-content-child">
                 <div className="user-data navbar-content-child">
                     <div className="profile">
                         <img src={imageUrl} alt="img-profile" className="img-profile" />
                     </div>
                 </div>
-            </section> */}
+            </section>
         </nav>
     );
 };
