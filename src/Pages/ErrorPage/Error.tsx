@@ -10,6 +10,7 @@ const Error: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 height: "100vh",
+                width: "100%",
                 backgroundImage: `url(${image404})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',

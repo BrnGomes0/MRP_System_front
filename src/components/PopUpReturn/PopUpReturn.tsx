@@ -12,16 +12,15 @@ const PopUpOk: React.FC<PopUpProps> = ({onClose, title, imageUrl}) =>{
     const [showPopUp, setShowPopUp] = useState(true);
 
     useEffect(() => {
-        //Criando um temporizador com 3000 (3 segundos)
+        
         const timer = setTimeout(() =>{
-            setShowPopUp(false); //Define o estado para fechar o pop-up
+            setShowPopUp(false);
         }, 3000); 
 
-        //Limpando o temporizador se o componente for quebrado antes dos 3 segundos
         return () => clearTimeout(timer);
     }, [onClose]);
 
-    //Se o estado for falso, não abre o popUp, no começo lá está true para abrir, e depois ali dos 3 segundos, vira falso de novo
+    
     if(!showPopUp) return null;
 
     return(

@@ -12,6 +12,8 @@ const Warenhouse: React.FC = () => {
     const [id, setId] = useState<string>('')
     const [selectedMaterial, setSelectedMaterial] = useState<"Material A - (Pen)" | "Material B - (Package)">("Material A - (Pen)")
     const [data, setData] = useState<any[]>([]);
+    const [showWarning, setShowWarning] = useState(false);
+
     
     const handleMaterialSelect = (material: "Material A - (Pen)" | "Material B - (Package)") => {
         setSelectedMaterial(material);

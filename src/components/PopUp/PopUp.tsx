@@ -15,7 +15,7 @@ interface PopUpProps{
 
 const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     const [popUp, setPopUp] = useState<{title: string, imageUrl?: string } | null > (null);
-    const [option, setSelectedOption] = useState<"Material A - (Pen)" | "Material B - (Package)">("Material A - (Pen)")
+    const [option, setSelectedOption] = useState<"Material A - (Pen)">("Material A - (Pen)")
     const [week, setWeek] = useState<string>("");
     const [inputValues, setInputValues] = useState<Record<string, string>>({
         materialConsumption: '',
@@ -23,12 +23,12 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     })
 
     const handleMaterialChange = (value : string) =>{
-        setSelectedOption(value as "Material A - (Pen)" | "Material B - (Package)");
+        setSelectedOption(value as "Material A - (Pen)");
     }
     
     const fetchDataGetWeek = async() =>{
         try{
-            const dataGetWeek = await axios.get("http://localhost:8081/inventory/all")
+            const dataGetWeek = await axios.get("http://localhost:8080/inventory/all")
             const valores = dataGetWeek.data.length
 
             setWeek(dataGetWeek.data[valores-1].week)
@@ -36,7 +36,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
         }
     }
     
-    const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
+    const fetchData = async (material: "Material A - (Pen)") =>{
         try{
             //pegar o ultimo inventory criado
             const dataInventory = await axios.get("http://localhost:8080/inventory/all")
@@ -93,7 +93,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
         }));
     }
 
-    const options = ["Material A - (Pen)", "Material B - (Package)"]
+    const options = ["Material A - (Pen)"]
 
     useEffect(() =>{
         fetchDataGetWeek();
