@@ -13,15 +13,15 @@ import PopUpError from "../../components/PopUpError/PopUpError";
 const Manufacturing: React.FC = () => {
     const [search, setSearch] = useState("");
     const [popUp, setPopUp] = useState(false);
-    const [selectedMaterial, setSelectedMaterial] = useState<"Material A - (Pen)" | "Material B - (Package)" | "">("")
+    const [selectedMaterial, setSelectedMaterial] = useState<"Material A - (Pen)" | "">("")
     const [data, setData] = useState<any[]>([]); //Armazenando os dados da API
 
-    const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
+    const fetchData = async (material: "Material A - (Pen)") =>{
         try{
             //Escolher a url de acordo com oq for clicado A ou B
             const url = material === "Material A - (Pen)"
-                ? "http://localhost:8080/purchaseOrder/allMaterialsA"
-                : "http://localhost:8080/purchaseOrder/allMaterialsB";
+                ? "http://localhost:8081/purchaseOrder/allMaterialsA"
+                : "http://localhost:8081/purchaseOrder/allMaterialsA";
 
             const response = await axios.get(url);
 

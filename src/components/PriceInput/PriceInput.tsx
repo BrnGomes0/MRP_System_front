@@ -15,6 +15,9 @@ const PriceInput: React.FC<PriceInputProps> = ({classname, value, placeholder, l
     const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         const numericValue = inputValue.replace(/\D/g, "");
+        const maxValue = 999999
+
+        if(parseInt(numericValue) > maxValue) return;
 
         const formattedValue = new Intl.NumberFormat("pt-BR", {
             style: "currency",

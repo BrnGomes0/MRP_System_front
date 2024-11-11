@@ -10,19 +10,19 @@ import axios from "axios";
 const Warenhouse: React.FC = () => {
     const [search, setSearch] = useState("");
     const [id, setId] = useState<string>('')
-    const [selectedMaterial, setSelectedMaterial] = useState<"Material A - (Pen)" | "Material B - (Package)">("Material A - (Pen)")
+    const [selectedMaterial, setSelectedMaterial] = useState<"Material A - (Pen)" >("Material A - (Pen)")
     const [data, setData] = useState<any[]>([]);
     const [showWarning, setShowWarning] = useState(false);
 
     
-    const handleMaterialSelect = (material: "Material A - (Pen)" | "Material B - (Package)") => {
+    const handleMaterialSelect = (material: "Material A - (Pen)" ) => {
         setSelectedMaterial(material);
         setSearch(""); 
     };
 
-    const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
+    const fetchData = async (material: "Material A - (Pen)" ) =>{
         try{
-            const responseData = await axios.get("http://localhost:8080/inventory/all")
+            const responseData = await axios.get("http://localhost:/inventory/all")
             const filteredMaterials = responseData.data.filter((item: any) =>
                 item.materialName.toLowerCase() === material.toLowerCase()
            );

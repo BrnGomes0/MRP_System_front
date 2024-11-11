@@ -18,12 +18,12 @@ const RegisterAInforRecord: React.FC = () => {
     const [supplierCode, setSupplierCode] = useState<string>('');
     const [popUp, setPopUp] = useState<{ title: string; imageUrl?: string } | null > (null);
     const [price, setPrice] = useState<string>("0.00");
-    const [leadTime, setLeadTime] = useState<string>("0");
+    const [leadTime, setLeadTime] = useState<string>("1");
 
     const fetchData = async () => {
         try{
             // Converte o valor de price (string) para um número, removendo vírgulas e pontos
-            const responseGet = await axios.get("http://localhost:8080/material/materials")
+            const responseGet = await axios.get("http://localhost:8081/material/materials")
             const responseLength = responseGet.data.length
             
             if (responseLength > 0){
@@ -37,7 +37,7 @@ const RegisterAInforRecord: React.FC = () => {
                     setSupplierCode("989202")
                 }else{
                     setMaterialText("Unknown Material")
-                    setSupplierCode("666666")
+                    setSupplierCode("666")
                 }
                 setMaterialCode(responseGet.data[responseLength -1].materialCode)
             }else{
@@ -55,21 +55,21 @@ const RegisterAInforRecord: React.FC = () => {
                     const formattedPrice = parseFloat(price.replace(/\./g, '').replace(',', '.'));
                     const formattedLeadTime = parseInt(leadTime)
                     
-                    const materialPost = await axios.post("http://localhost:8080/inforecord/test", {
+                    const materialPost = await axios.post("http://localhost:8081/inforecord/test", {
                         leadTime: formattedLeadTime,
                         price: formattedPrice,     
                     });
 
-                    const getMaterial = await axios.get("http://localhost:8080/material/materials")
+                    const getMaterial = await axios.get("http://localhost:8081/material/materials")
                     const idLastMaterial = getMaterial.data.length
 
                     console.log("Ultimo material dados: ", getMaterial.data)
 
-                    const inventoryPost = await axios.post(`http://localhost:8080/inventory/register/${idLastMaterial}`)
-                    const getInventory = await axios.get("http://localhost:8080/inventory/all")
+                    const inventoryPost = await axios.post(`http://localhost:8081/inventory/register/${idLastMaterial}`)
+                    const getInventory = await axios.get("http://localhost:8081/inventory/all")
                     const idLastInventory = getInventory.data.length 
 
-                    const purchaseOrderPost = await axios.post(`http://localhost:8080/purchaseOrder/${idLastInventory}`)
+                    const purchaseOrderPost = await axios.post(`http://localhost:8081/purchaseOrder/${idLastInventory}`)
 
                     console.log("Dados enviados: ", materialPost)
                     console.log("Post no inventory: ", inventoryPost)
@@ -121,7 +121,7 @@ const RegisterAInforRecord: React.FC = () => {
             </div>
             <Box classname="w-[400px] h-[240px]">
                 <Forms>
-                   <div className="flex gap-6 justify-center items-center">
+                   <div className="flex gap-10 p-1.5 justify-center items-center ">
                         <StaticInput
                                 label="Material"
                                 value={materialText}
@@ -145,11 +145,10 @@ const RegisterAInforRecord: React.FC = () => {
                             value={price}
                             onPriceChange={handlePriceChange}
                         />
-                        <NumberInput
+                        <StaticInput
                             label="Lead Time"
-                            placeholder="0"
                             value={leadTime}
-                            method={handleLeadTimeChange}
+                            style={{width: 100}}
                         />
                    </div>
                    <div className="flex justify-center items-center p-40">

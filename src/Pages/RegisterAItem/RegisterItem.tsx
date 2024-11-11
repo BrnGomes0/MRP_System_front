@@ -25,7 +25,7 @@ const RegisterItem: React.FC  = () => {
     const fetchData = async () => {
         if(inputValues.demand != 0 && inputValues.initialInventory != 0){
             try{                    
-                    const response = await axios.post("http://localhost:8080/material", {
+                    const response = await axios.post("http://localhost:8081/material", {
                         materialCode: inputValues.materialCode,
                         demand: inputValues.demand,
                         initialInventory: inputValues.initialInventory,
