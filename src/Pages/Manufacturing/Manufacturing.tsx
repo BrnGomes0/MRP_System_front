@@ -20,8 +20,8 @@ const Manufacturing: React.FC = () => {
         try{
             //Escolher a url de acordo com oq for clicado A ou B
             const url = material === "Material A - (Pen)"
-                ? "http://localhost:8081/purchaseOrder/allMaterialsA"
-                : "http://localhost:8081/purchaseOrder/allMaterialsB";
+                ? "http://localhost:8080/purchaseOrder/allMaterialsA"
+                : "http://localhost:8080/purchaseOrder/allMaterialsB";
 
             const response = await axios.get(url);
 
@@ -38,7 +38,7 @@ const Manufacturing: React.FC = () => {
         }
     } 
 
-    const handleMaterialSelect = (material: "Material A - (Pen)" | "Material B - (Package)") => {
+    const handleMaterialSelect = (material: "Material A - (Pen)") => {
         setSelectedMaterial(material);
         setSearch(""); 
         fetchData(material)
@@ -61,7 +61,7 @@ const Manufacturing: React.FC = () => {
                 </div>
             </div>
             <div className="flex flex-col gap-4">
-                    <div className="flex gap-10">
+                    <div className="flex">
                         <div className="p-2">
                             <SearchBar
                                 placeholder="Search here..."
@@ -72,10 +72,6 @@ const Manufacturing: React.FC = () => {
                             <Button
                                 text="Material A"
                                 onClick={() => handleMaterialSelect("Material A - (Pen)")}
-                            />
-                            <Button
-                                text="Material B"
-                                onClick={() => handleMaterialSelect("Material B - (Package)")}
                             />
                         </div>
                     </div>

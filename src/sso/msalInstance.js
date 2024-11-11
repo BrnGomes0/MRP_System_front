@@ -4,7 +4,6 @@ import { msalConfig } from "./authConfig";
 export const msalAccount = new PublicClientApplication(msalConfig);
 
 msalAccount.initialize().then(() => {
-  // Account selection logic is app dependent. Adjust as needed for different use cases.
   const accounts = msalAccount.getAllAccounts();
   console.log(accounts);
   console.log(accounts[0].name);
@@ -20,5 +19,4 @@ msalAccount.initialize().then(() => {
       msalAccount.setActiveAccount(account);
     }
   });
-  
 });

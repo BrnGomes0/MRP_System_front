@@ -23,7 +23,7 @@ const RegisterAInforRecord: React.FC = () => {
     const fetchData = async () => {
         try{
             // Converte o valor de price (string) para um número, removendo vírgulas e pontos
-            const responseGet = await axios.get("http://localhost:8081/material/materials")
+            const responseGet = await axios.get("http://localhost:8080/material/materials")
             const responseLength = responseGet.data.length
             
             if (responseLength > 0){

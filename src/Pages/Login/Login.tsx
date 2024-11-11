@@ -32,7 +32,8 @@ const Login: React.FC = () => {
     }, [accounts, inProgress, navigate])
 
     return(
-        <section
+        <>
+            <section
             style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -71,6 +72,7 @@ const Login: React.FC = () => {
             </div>
 
             </section>
+        </>
     )
 }
 

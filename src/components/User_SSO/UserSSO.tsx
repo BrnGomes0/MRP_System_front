@@ -16,7 +16,15 @@ const UserSSO: React.FC<UserSSO> = ({name, image}) => {
     const [loading, setLoading] = useState(true);
     const { instance, inProgress } = useMsal();
     const account = instance.getActiveAccount();
-    const [showPopUp, setShowPopUp] = useState(false)
+    const [showPopUp, setShowPopUp] = useState(false);
+
+    const openPopUpMethod = () => {
+      setShowPopUp(true)
+    }
+
+    const closePopUpMethod = () => {
+      setShowPopUp(false)
+    }
 
 useEffect(() => {
     if (!imageUrl && inProgress === InteractionStatus.None) {
@@ -35,15 +43,6 @@ useEffect(() => {
         });
     }
   }, [inProgress, instance, imageUrl, account?.name]);
-
-    const openPopUp = () => {
-      setShowPopUp(true)
-    }
-
-    const closePopUp = () => {
-      setShowPopUp(false)
-    }
-
     return(
         <div className="flex gap-2 justify-center items-center">
             {name && account?.name && ( 
@@ -53,13 +52,18 @@ useEffect(() => {
             )}
             {image && imageUrl && (
               <div className="w-[40px] h-[40px]">
-                <button className="rounded-full">
+                <button className="rounded-full" onClick={openPopUpMethod}>
                   <img src={imageUrl} alt="user_icon" className="rounded-full" />
                 </button>
               </div>
             )}
-
-            {showPopUp && <PopUpUser closePopUp={closePopUp} openPopUp={true}/>}
+            {showPopUp && (
+              <PopUpUser
+                closePopUp={closePopUpMethod}
+                openPopUp={true}
+                nameofuser={account?.name}
+              />
+            )}
         </div>
     );
 }

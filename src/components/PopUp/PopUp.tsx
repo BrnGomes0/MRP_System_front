@@ -28,7 +28,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     
     const fetchDataGetWeek = async() =>{
         try{
-            const dataGetWeek = await axios.get("http://localhost:8081/inventory/all")
+            const dataGetWeek = await axios.get("http://localhost:8080/inventory/all")
             const valores = dataGetWeek.data.length
 
             setWeek(dataGetWeek.data[valores-1].week)
@@ -39,7 +39,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
         try{
             //pegar o ultimo inventory criado
-            const dataInventory = await axios.get("http://localhost:8081/inventory/all")
+            const dataInventory = await axios.get("http://localhost:8080/inventory/all")
 
             console.log("Material do tipo: ", material)
             const filteredMaterials = dataInventory.data.filter((item: any) =>
@@ -51,7 +51,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
             if(valoresCriados > 1){
                 const putMaterial = filteredMaterials[valoresCriados-1].inventory_id;
 
-                const urlPutData = await axios.post(`http://localhost:8081/purchaseOrder/updatePurchasingOrder/${putMaterial}`,{
+                const urlPutData = await axios.post(`http://localhost:8080/purchaseOrder/updatePurchasingOrder/${putMaterial}`,{
                     demand: inputValues.materialConsumption,
                     orderReceived: inputValues.orderReceived
                 });
@@ -65,7 +65,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
 
                 const firstMaterial = filteredMaterials[0].inventory_id;
 
-                const urlPutData = await axios.post(`http://localhost:8081/purchaseOrder/updatePurchasingOrder/${firstMaterial}`,{
+                const urlPutData = await axios.post(`http://localhost:8080/purchaseOrder/updatePurchasingOrder/${firstMaterial}`,{
                     demand: inputValues.materialConsumption,
                     orderReceived: inputValues.orderReceived
                 });
@@ -102,7 +102,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     return(
         <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur-sm flex justify-center items-center z-50">
             <div className="p-4 bg-white w-[406px] h-[450px] rounded-xl flex flex-col justify-center items-center gap-6 shadow-lg">
-            <button className="place-self-end font-bold" onClick={onClose}>X</button>
+            <button className="place-self-end text-gray-500" onClick={onClose}>X</button>
                 <div className="flex flex-col text-center">
                     <TitleSmall
                         title="Informations:"

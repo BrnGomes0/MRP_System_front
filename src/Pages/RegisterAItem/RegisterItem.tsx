@@ -23,16 +23,12 @@ const RegisterItem: React.FC  = () => {
     });
 
     const fetchData = async () => {
-        //Validação dos dados antes do POST
         if(inputValues.demand != 0 && inputValues.initialInventory != 0){
-            try{
-                    console.log("oi", inputValues.materialCode)
-                    console.log("safety: ", inputValues.safetyStock)
-                    //POST para os dados
-                    const response = await axios.post("http://localhost:8081/material", {
+            try{                    
+                    const response = await axios.post("http://localhost:8080/material", {
                         materialCode: inputValues.materialCode,
-                        demand: inputValues.demand, //Enviando o valor do input do demand
-                        inicialInventory: inputValues.inicialInventory, //Enviando o valor do initialInventory
+                        demand: inputValues.demand,
+                        inicialInventory: inputValues.inicialInventory,
                         safetyStock: inputValues.safetyStock
                     });
                     
@@ -51,7 +47,6 @@ const RegisterItem: React.FC  = () => {
                 console.log("Erro na conexão: ", error)
             }
         }else{
-            console.log("não salvou nada")
             setPopUp({title: "A Demand e InicialInventory devem ser maior que 0!", imageUrl: "/src/assets/erro.png"})
             setTimeout(() =>{
                 setPopUp(null)
@@ -60,11 +55,11 @@ const RegisterItem: React.FC  = () => {
         }
     }
 
-    const options = ['Material A - (Pen)', 'Material B - (Package)'];
+    const options = ['Material A - (Pen)'];
  
     const materialsCodes: Record<string, string> = {
-        "Material A - (Pen)":"1230", 
-        "Material B - (Package)" : "1240"
+        "Material A - (Pen)":"1230"
+        
     }
 
     const convertToNumber = (value: string | number): number => {
@@ -74,10 +69,10 @@ const RegisterItem: React.FC  = () => {
     const handleSelect = (value: string) => {
         setSelectedOption(value);
 
-        // Atualiza o materialCode no estado
+        
         setInputValues((prevValues) => ({
             ...prevValues,
-            materialCode: materialsCodes[value], // Aqui, o valor selecionado é usado para definir o materialCode
+            materialCode: materialsCodes[value],
         }));
     };
  
@@ -132,7 +127,7 @@ const RegisterItem: React.FC  = () => {
                                 label="Demand"
                                 placeholder="0"
                                 value={convertToNumber(inputValues.demand)}
-                                method={(demand) => handleChange('demand', demand)} //Capturando mudanças
+                                method={(demand) => handleChange('demand', demand)}
                                
                             />
                             <NumberInput

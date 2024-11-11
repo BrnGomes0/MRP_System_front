@@ -20,8 +20,7 @@ const Warenhouse: React.FC = () => {
 
     const fetchData = async (material: "Material A - (Pen)" | "Material B - (Package)") =>{
         try{
-            const responseData = await axios.get("http://localhost:8081/inventory/all")
-            //Filtrando os materiais com base no materialText da API
+            const responseData = await axios.get("http://localhost:8080/inventory/all")
             const filteredMaterials = responseData.data.filter((item: any) =>
                 item.materialName.toLowerCase() === material.toLowerCase()
            );
@@ -56,21 +55,17 @@ const Warenhouse: React.FC = () => {
                 </div>
             </div>
             <div className="flex flex-col gap-4">
-            <div className="flex gap-10">
-                        <div className="p-2">
+            <div className="flex">
+                        <div className="">
                             <SearchBar
                                 placeholder="Search here..."
                                 setSearch={setSearch}
                             />
                         </div>
-                        <div className="flex justify-center items-center w-[210px] p-2 gap-2">
+                        <div className="flex justify-center items-center w-[210px]">
                             <Button
                                 text="Material A"
                                 onClick={() => handleMaterialSelect("Material A - (Pen)")}
-                            />
-                            <Button
-                                text="Material B"
-                                onClick={() => handleMaterialSelect("Material B - (Package)")}
                             />
                         </div>
                     </div>
