@@ -13,7 +13,7 @@ interface PopUpProps{
     onClose?: () => void
 }
 
-const PopUp: React.FC<PopUpProps>= ({onClose, }) => {
+const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     const [popUp, setPopUp] = useState<{title: string, imageUrl?: string } | null > (null);
     const [option, setSelectedOption] = useState<"Material A - (Pen)" | "Material B - (Package)">("Material A - (Pen)")
     const [week, setWeek] = useState<string>("");

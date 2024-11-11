@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Line from "../Icons/LineBosch/LineBosch";
 import BoschIcon from "../Icons/BoschIcon/BoschIcon";
-import { useMsal } from "@azure/msal-react";
-import { callMsGraph } from "../../sso/MsGraphApiCalls";
-import { loginRequest } from "../../sso/authConfig";
-import { InteractionRequiredAuthError, InteractionStatus,} from "@azure/msal-browser";
-import { useEffect } from "react";
 import Logoutbutton from "../LogoutButton/LogoutButton.js"
 import imgLogOut from "../../assets/exit.png"
+import UserSSO from "../User_SSO/UserSSO.js";
 
 
 interface NavContext {
@@ -33,30 +29,6 @@ const Header: React.FC = () => {
         navigate(path)
     };
 
-const [imageUrl, setImageUrl] = useState("");
-const [loading, setLoading] = useState(true);
-
-const { instance, inProgress } = useMsal();
-const account = instance.getActiveAccount();
-
-useEffect(() => {
-    if (!imageUrl && inProgress === InteractionStatus.None) {
-      callMsGraph()
-        .then((response) => {
-          setImageUrl(response?.blobUrl);
-          setLoading(false);
-        })
-        .catch((e) => {
-          if (e instanceof InteractionRequiredAuthError) {
-            instance.acquireTokenRedirect({
-              ...loginRequest,
-              account: instance.getActiveAccount(),
-            });
-          }
-        });
-    }
-  }, [inProgress, instance, imageUrl, account?.name]);
-
     return (
         <nav className="shadow-md w-full fixed h-[73px] bg-white z-20">
             <Line />
@@ -77,19 +49,13 @@ useEffect(() => {
                         ))}
                     </ul>
                 </div>
-                
-                <div>
-                    <Logoutbutton/>
+                <div className="p-2">
+                    <UserSSO
+                        image={true}
+                    />
                 </div>
-
             </div>
-            <section className="navbar-content-child">
-                <div className="user-data navbar-content-child">
-                    <div className="profile">
-                        <img src={imageUrl} alt="img-profile" className="img-profile" />
-                    </div>
-                </div>
-            </section>
+           
         </nav>
     );
 };
