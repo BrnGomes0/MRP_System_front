@@ -55,22 +55,21 @@ const RegisterAInforRecord: React.FC = () => {
                     const formattedPrice = parseFloat(price.replace(/\./g, '').replace(',', '.'));
                     const formattedLeadTime = parseInt(leadTime)
                     
-                    //console.log("Dados que vão ser enviados: ", formattedPrice, formattedLeadTime, materialCode, materialText, supplierCode)
-                    const materialPost = await axios.post("http://localhost:8081/inforecord/teste", {
+                    const materialPost = await axios.post("http://localhost:8080/inforecord/test", {
                         leadTime: formattedLeadTime,
                         price: formattedPrice,     
                     });
 
-                    const getMaterial = await axios.get("http://localhost:8081/material/materials")
+                    const getMaterial = await axios.get("http://localhost:8080/material/materials")
                     const idLastMaterial = getMaterial.data.length
 
                     console.log("Ultimo material dados: ", getMaterial.data)
 
-                    const inventoryPost = await axios.post(`http://localhost:8081/inventory/register/${idLastMaterial}`)
-                    const getInventory = await axios.get("http://localhost:8081/inventory/all")
+                    const inventoryPost = await axios.post(`http://localhost:8080/inventory/register/${idLastMaterial}`)
+                    const getInventory = await axios.get("http://localhost:8080/inventory/all")
                     const idLastInventory = getInventory.data.length 
 
-                    const purchaseOrderPost = await axios.post(`http://localhost:8081/purchaseOrder/${idLastInventory}`)
+                    const purchaseOrderPost = await axios.post(`http://localhost:8080/purchaseOrder/${idLastInventory}`)
 
                     console.log("Dados enviados: ", materialPost)
                     console.log("Post no inventory: ", inventoryPost)
@@ -163,7 +162,7 @@ const RegisterAInforRecord: React.FC = () => {
                                     title={popUp.title}
                                     imageUrl={popUp.imageUrl}
                                 />
-                            )};
+                            )}
                     </div>
                 </Forms>
                 

@@ -22,7 +22,7 @@ const PopUpUser: React.FC<PopUpUserProps> = ({ closePopUp, openPopUp, nameofuser
                            <div> <h1 className="font-medium">Welcome, {nameofuser}</h1> </div>
                             <div>
                                 <Button
-                                    classname=" h-[28px] w-[64px] text-sm"
+                                    classname=" h-[27px] w-[64px] text-sm"
                                     text="Logout"
                                     onClick={() => handleLogout("popup")}
                                 />

@@ -18,7 +18,7 @@ const RegisterItem: React.FC  = () => {
     const [inputValues, setInputValues] = useState<Record<string, number | string>>({
         materialCode: '',
         demand: 0,
-        inicialInventory: 0,
+        initialInventory: 0,
         safetyStock: 0,
     });
 
@@ -28,11 +28,11 @@ const RegisterItem: React.FC  = () => {
                     const response = await axios.post("http://localhost:8080/material", {
                         materialCode: inputValues.materialCode,
                         demand: inputValues.demand,
-                        inicialInventory: inputValues.inicialInventory,
+                        initialInventory: inputValues.initialInventory,
                         safetyStock: inputValues.safetyStock
                     });
                     
-                    console.log("Dados enviados:", response.data)
+                    console.log("Data Send:", response.data)
                     setPopUp({title: "Material Created", imageUrl: "/src/assets/correct.png"});
 
                     setTimeout(() => {
@@ -40,14 +40,14 @@ const RegisterItem: React.FC  = () => {
                         navigate("/info_record")
                     }, 3000);
             }catch (error){
-                setPopUp({title: "Erro na conexão com o banco de dados", imageUrl: "/src/assets/erro.png"})
+                setPopUp({title: "Error connecting to database", imageUrl: "/src/assets/erro.png"})
                 setTimeout(() =>{
                     setPopUp(null)
                 }, 3000);
                 console.log("Erro na conexão: ", error)
             }
         }else{
-            setPopUp({title: "A Demand e InicialInventory devem ser maior que 0!", imageUrl: "/src/assets/erro.png"})
+            setPopUp({title: "Demand and initial inventory must be greater than 0!", imageUrl: "/src/assets/erro.png"})
             setTimeout(() =>{
                 setPopUp(null)
             }, 3000)
@@ -134,8 +134,8 @@ const RegisterItem: React.FC  = () => {
                                 label="Initial Inventory"
                                 placeholder="0"
                                 classname="w-[113px]"
-                                value={convertToNumber(inputValues.inicialInventory)}
-                                method={(inicialInventory) => handleChange('inicialInventory', inicialInventory)}
+                                value={convertToNumber(inputValues.initialInventory)}
+                                method={(initialInventory) => handleChange('initialInventory', initialInventory)}
                             />
 
                             <NumberInput

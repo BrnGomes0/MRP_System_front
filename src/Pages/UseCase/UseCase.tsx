@@ -5,7 +5,6 @@ import TitleSmall from "../../components/Title/Title_h3";
 import TitleBig from "../../components/Title/Title_h1";
 import DescriptionTwoValues from "../../components/DescriptionTwoValues/DescriptionTwoValues";
 import SubTitleBold from "../../components/SubTitle/SubTitleBold";
-import UserSSO from "../../components/User_SSO/UserSSO";
 
 const UseCase: React.FC = () => {
 
@@ -28,19 +27,11 @@ const UseCase: React.FC = () => {
                                 valueBold="Supplier Code Material A (Pen): "
                                 valueLight="929028"
                             />
-                            <DescriptionTwoValues
-                                valueBold="Supplier Code Material B (Package): "
-                                valueLight="929029"
-                            />
                         </div>
                         <div className="flex flex-col gap-1">
                             <TitleSmall title="Lead Time"/>
                             <DescriptionTwoValues
                                 valueBold="Material A (Pen): "
-                                valueLight="1 Week"
-                            />
-                            <DescriptionTwoValues
-                                valueBold="Material B (Package): "
                                 valueLight="1 Week"
                             />
                         </div>
@@ -50,10 +41,6 @@ const UseCase: React.FC = () => {
                             <DescriptionTwoValues
                                 valueBold="Material Code A (Pen): "
                                 valueLight="1230"
-                            />
-                            <DescriptionTwoValues
-                                valueBold="Material Code B (Package): "
-                                valueLight="1240"
                             />
                         </div>
                         <div className="flex flex-col gap-1">

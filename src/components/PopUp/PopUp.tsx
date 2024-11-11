@@ -28,7 +28,7 @@ const PopUp: React.FC<PopUpProps>= ({onClose}) => {
     
     const fetchDataGetWeek = async() =>{
         try{
-            const dataGetWeek = await axios.get("http://localhost:8080/inventory/all")
+            const dataGetWeek = await axios.get("http://localhost:8081/inventory/all")
             const valores = dataGetWeek.data.length
 
             setWeek(dataGetWeek.data[valores-1].week)

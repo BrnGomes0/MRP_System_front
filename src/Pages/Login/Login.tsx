@@ -38,6 +38,7 @@ const Login: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 height: "100vh",
+                width: "100%",
                 backgroundImage: `url(${imageBosch})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -54,7 +55,7 @@ const Login: React.FC = () => {
                                 title="MRP System"
                             />
                             <SubTitle
-                                subTitle="Login in the Simulator:"
+                                subTitle="Login in the Simulator"
                             />
                         </div>
                         <div className="flex flex-col p-2 justify-center items-center gap-2">
