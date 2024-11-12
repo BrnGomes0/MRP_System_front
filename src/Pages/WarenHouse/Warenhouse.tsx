@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
 import axios from "axios";
+import PopUpWarning from "../../components/popUpWarning/PopUpWarning";
+import WarningIconPopUp from "../../assets/alert-warning.png"
 
 const Warenhouse: React.FC = () => {
     const [search, setSearch] = useState("");
@@ -33,6 +35,12 @@ const Warenhouse: React.FC = () => {
                 console.log(responseData.data)
             }else{
             console.log("Nenhum dado encontrado no Back-End")
+            }
+            const lastItem = filteredMaterials[filteredMaterials.length - 1];
+            if (lastItem && lastItem.finalInventory < 0) {
+                setShowWarning(true);
+            } else {
+                setShowWarning(false);
             }
         }catch(error){
         console.log("Erro na conexão do backend", error)
@@ -108,6 +116,17 @@ const Warenhouse: React.FC = () => {
                     </div>
                 </Box>
             </div>
+            {showWarning && (
+                <PopUpWarning
+                    image={{
+                        src: WarningIconPopUp,
+                        alt: "warning_image_popup"
+                    }}
+                    content="Negative stock detected!"
+                    onClose={() => setShowWarning(false)}
+                    classnameContent="text-white font-semibold"
+                />
+            )}
         </section>
     )
 }

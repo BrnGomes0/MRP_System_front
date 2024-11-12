@@ -18,8 +18,8 @@ const PopUp: React.FC<PopUpProps>= ({onClose }) => {
     const [option, setSelectedOption] = useState<"Material A - (Pen)">("Material A - (Pen)")
     const [week, setWeek] = useState<string>("");
     const [inputValues, setInputValues] = useState<Record<string, string>>({
-        materialConsumption: '',
-        orderReceived: ''
+        materialConsumption: '0',
+        orderReceived: '0'
     })
 
     const handleMaterialChange = (value : string) =>{
